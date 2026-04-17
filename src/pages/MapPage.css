@@ -1,0 +1,35 @@
+.map-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.map-split {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr;
+  gap: 24px;
+  min-height: 550px;
+}
+
+.map-split-left,
+.map-split-right {
+  min-height: 0;
+}
+
+.map-split-right .district-table-wrapper {
+  height: 100%;
+}
+
+.map-split-right .district-table-scroll {
+  max-height: 520px;
+}
+
+.top10-chart {
+  padding: 22px;
+}
+
+@media (max-width: 1100px) {
+  .map-split {
+    grid-template-columns: 1fr;
+  }
+}
