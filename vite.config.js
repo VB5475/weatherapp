@@ -11,5 +11,25 @@ export default defineConfig({
         secure: false,
       }
     }
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('recharts') || id.includes('d3')) {
+              return 'recharts'; // Put recharts + d3 dependencies together
+            }
+            if (id.includes('leaflet')) {
+              return 'leaflet'; // Leaflet dependencies
+            }
+            if (id.includes('react')) {
+              return 'react'; // React core
+            }
+            return 'vendor'; // All other generic dependencies
+          }
+        }
+      }
+    }
   }
 })
