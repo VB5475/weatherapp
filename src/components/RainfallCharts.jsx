@@ -51,11 +51,11 @@ export function ActualVsNormalChart({ stateData }) {
       </div>
       <ResponsiveContainer width="100%" height={280}>
         <BarChart data={barData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-          <XAxis dataKey="period" tick={{ fill: '#94A3B8', fontSize: 12 }} axisLine={{ stroke: 'rgba(255,255,255,0.1)' }} />
-          <YAxis tick={{ fill: '#94A3B8', fontSize: 12 }} axisLine={{ stroke: 'rgba(255,255,255,0.1)' }} />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.05)" />
+          <XAxis dataKey="period" tick={{ fill: '#334155', fontSize: 12 }} axisLine={{ stroke: 'rgba(0,0,0,0.1)' }} />
+          <YAxis tick={{ fill: '#334155', fontSize: 12 }} axisLine={{ stroke: 'rgba(0,0,0,0.1)' }} />
           <Tooltip content={<CustomTooltip />} />
-          <Legend wrapperStyle={{ fontSize: 12, color: '#94A3B8' }} />
+          <Legend wrapperStyle={{ fontSize: 12, color: '#334155' }} />
           <Bar dataKey="actual" name="Actual" fill={CHART_COLORS.actual} radius={[6, 6, 0, 0]} />
           <Bar dataKey="normal" name="Normal" fill={CHART_COLORS.normal} radius={[6, 6, 0, 0]} />
         </BarChart>
@@ -104,10 +104,10 @@ export function CategoryDistributionChart({ districtData }) {
           </Pie>
           <Tooltip
             contentStyle={{
-              background: 'rgba(15, 23, 42, 0.95)',
-              border: '1px solid rgba(255,255,255,0.1)',
+              background: 'rgba(255, 255, 255, 0.95)',
+              border: '1px solid rgba(0,0,0,0.1)',
               borderRadius: '8px',
-              color: '#F1F5F9',
+              color: '#0F172A',
             }}
           />
         </PieChart>

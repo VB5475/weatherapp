@@ -68,27 +68,27 @@ export default function MapPage() {
             data={top10}
             margin={{ top: 20, right: 30, left: 5, bottom: 25 }}
           >
-            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.05)" vertical={false} />
             <XAxis
               type="category"
               dataKey="name"
-              tick={{ fill: '#F1F5F9', fontSize: 11, fontWeight: 500 }}
-              axisLine={{ stroke: 'rgba(255,255,255,0.1)' }}
+              tick={{ fill: '#334155', fontSize: 11, fontWeight: 500 }}
+              axisLine={{ stroke: 'rgba(0,0,0,0.1)' }}
               angle={-45}
               textAnchor="end"
             />
             <YAxis
               type="number"
-              tick={{ fill: '#94A3B8', fontSize: 12 }}
-              axisLine={{ stroke: 'rgba(255,255,255,0.1)' }}
+              tick={{ fill: '#64748B', fontSize: 12 }}
+              axisLine={{ stroke: 'rgba(0,0,0,0.1)' }}
               unit=" mm"
             />
             <Tooltip
               contentStyle={{
-                background: 'rgba(15, 23, 42, 0.95)',
-                border: '1px solid rgba(255,255,255,0.1)',
+                background: 'rgba(255, 255, 255, 0.95)',
+                border: '1px solid rgba(0,0,0,0.1)',
                 borderRadius: '8px',
-                color: '#F1F5F9',
+                color: '#0F172A',
               }}
               formatter={(value) => [`${value} mm`, 'Cumulative']}
               labelFormatter={(label, payload) => payload?.[0]?.payload?.fullName || label}

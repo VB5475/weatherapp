@@ -2,43 +2,43 @@
 
 :root {
   /* Core Colors */
-  --bg-primary: #0B1120;
-  --bg-secondary: #111827;
-  --bg-card: rgba(15, 23, 42, 0.7);
-  --bg-card-hover: rgba(15, 23, 42, 0.9);
-  --bg-sidebar: rgba(7, 11, 25, 0.95);
+  --bg-primary: #F8FAFC;
+  --bg-secondary: #F1F5F9;
+  --bg-card: rgba(255, 255, 255, 0.85);
+  --bg-card-hover: rgba(255, 255, 255, 1);
+  --bg-sidebar: rgba(248, 250, 252, 0.95);
 
   /* Accent Colors */
-  --accent-primary: #0EA5E9;
-  --accent-primary-dim: rgba(14, 165, 233, 0.15);
-  --accent-secondary: #06B6D4;
-  --accent-green: #10B981;
-  --accent-green-dim: rgba(16, 185, 129, 0.15);
-  --accent-red: #EF4444;
-  --accent-red-dim: rgba(239, 68, 68, 0.15);
-  --accent-amber: #F59E0B;
-  --accent-amber-dim: rgba(245, 158, 11, 0.15);
-  --accent-purple: #8B5CF6;
-  --accent-purple-dim: rgba(139, 92, 246, 0.15);
+  --accent-primary: #0284C7;
+  --accent-primary-dim: rgba(2, 132, 199, 0.1);
+  --accent-secondary: #0891B2;
+  --accent-green: #059669;
+  --accent-green-dim: rgba(5, 150, 105, 0.15);
+  --accent-red: #DC2626;
+  --accent-red-dim: rgba(220, 38, 38, 0.15);
+  --accent-amber: #D97706;
+  --accent-amber-dim: rgba(217, 119, 6, 0.15);
+  --accent-purple: #7C3AED;
+  --accent-purple-dim: rgba(124, 58, 237, 0.15);
 
   /* Text Colors */
-  --text-primary: #F1F5F9;
-  --text-secondary: #94A3B8;
+  --text-primary: #0F172A;
+  --text-secondary: #334155;
   --text-muted: #64748B;
 
   /* Borders */
-  --border-subtle: rgba(255, 255, 255, 0.06);
-  --border-light: rgba(255, 255, 255, 0.1);
-  --border-accent: rgba(14, 165, 233, 0.3);
+  --border-subtle: rgba(0, 0, 0, 0.06);
+  --border-light: rgba(0, 0, 0, 0.12);
+  --border-accent: rgba(2, 132, 199, 0.3);
 
   /* Shadows */
-  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3);
-  --shadow-glow: 0 0 30px rgba(14, 165, 233, 0.08);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.04);
+  --shadow-glow: 0 4px 12px rgba(2, 132, 199, 0.1);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.08);
 
   /* Glassmorphism */
   --glass-blur: 16px;
-  --glass-bg: rgba(15, 23, 42, 0.6);
+  --glass-bg: rgba(255, 255, 255, 0.8);
 
   /* Spacing */
   --sidebar-width: 260px;
