@@ -18,6 +18,20 @@ const CATEGORY_COLORS = {
   'Large Excess': '#10B981',
 };
 
+const RADIAN = Math.PI / 180;
+const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, value }) => {
+  if (value === 0) return null;
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+  return (
+    <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central" fontSize={14} fontWeight={600} style={{ textShadow: '0 1px 2px rgba(0,0,0,0.3)' }}>
+      {value}
+    </text>
+  );
+};
+
 function CustomTooltip({ active, payload, label }) {
   if (!active || !payload || !payload.length) return null;
   return (
@@ -120,13 +134,15 @@ export function CategoryDistributionChart({ districtData }) {
             outerRadius={100}
             paddingAngle={3}
             dataKey="value"
-            label={({ name, value }) => `${name}: ${value}`}
+            labelLine={false}
+            label={renderCustomizedLabel}
           >
             {pieData.map((entry, index) => (
               <Cell key={index} fill={CATEGORY_COLORS[entry.name] || '#64748B'} />
             ))}
           </Pie>
           <Tooltip content={<CustomPieTooltip />} />
+          <Legend wrapperStyle={{ fontSize: 12, color: '#334155' }} />
         </PieChart>
       </ResponsiveContainer>
     </div>

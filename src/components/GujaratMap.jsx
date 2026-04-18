@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { MapContainer, TileLayer, CircleMarker, Popup, Tooltip, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, Tooltip, useMap } from 'react-leaflet';
+import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { getCategoryColor, getCategoryLabel, getCategoryBadgeClass } from '../services/api';
 import './GujaratMap.css';
@@ -55,13 +56,33 @@ function MapZoomer({ center, zoom }) {
   return null;
 }
 
-function getMarkerRadius(cumulativeActual) {
+const CATEGORY_ICONS = {
+  'NR': '☀️',
+  'D': '🌤️',
+  'N': '🌦️',
+  'E': '🌧️',
+  'LE': '⛈️'
+};
+
+const createMarkerIcon = (cat, sizeMultiplier = 1) => {
+  const emoji = CATEGORY_ICONS[cat] || '☀️';
+  const size = 16 + (sizeMultiplier * 4); // scale up based on rainfall
+  return L.divIcon({
+    html: `<div style="font-size: ${size}px; line-height: 1; text-align: center; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));">${emoji}</div>`,
+    className: 'custom-weather-icon',
+    iconSize: [size * 1.2, size * 1.2],
+    iconAnchor: [(size * 1.2) / 2, (size * 1.2) / 2],
+    popupAnchor: [0, -size/2]
+  });
+};
+
+function getMarkerScale(cumulativeActual) {
   const val = parseFloat(cumulativeActual) || 0;
-  if (val >= 12) return 18;
-  if (val >= 8) return 15;
-  if (val >= 5) return 13;
-  if (val >= 2) return 11;
-  return 9;
+  if (val >= 12) return 5;
+  if (val >= 8) return 4;
+  if (val >= 5) return 3;
+  if (val >= 2) return 2;
+  return 1;
 }
 
 export default function GujaratMap({ districtData, selectedDistrict }) {
@@ -103,20 +124,13 @@ export default function GujaratMap({ districtData, selectedDistrict }) {
             const cat = data ? (data['Monthly Category'] || 'NR').trim() : 'NR';
             const color = getCategoryColor(cat);
             const cumulative = data ? data['Cumulative Actual'] : '0';
-            const radius = getMarkerRadius(cumulative);
+            const scale = getMarkerScale(cumulative);
 
             return (
-              <CircleMarker
+              <Marker
                 key={name}
-                center={coords}
-                radius={radius}
-                pathOptions={{
-                  color: color,
-                  fillColor: color,
-                  fillOpacity: 0.7,
-                  weight: 2,
-                  opacity: 0.9,
-                }}
+                position={coords}
+                icon={createMarkerIcon(cat, scale)}
               >
                 <Tooltip
                   direction="top"
@@ -161,7 +175,7 @@ export default function GujaratMap({ districtData, selectedDistrict }) {
                     )}
                   </div>
                 </Popup>
-              </CircleMarker>
+              </Marker>
             );
           })}
         </MapContainer>
@@ -170,14 +184,14 @@ export default function GujaratMap({ districtData, selectedDistrict }) {
       {/* Legend */}
       <div className="map-legend">
         {[
-          { cat: 'NR', label: 'No Rain' },
-          { cat: 'D', label: 'Deficient' },
-          { cat: 'N', label: 'Normal' },
-          { cat: 'E', label: 'Excess' },
-          { cat: 'LE', label: 'Large Excess' },
-        ].map(({ cat, label }) => (
+          { cat: 'NR', label: 'No Rain', icon: '☀️' },
+          { cat: 'D', label: 'Deficient', icon: '🌤️' },
+          { cat: 'N', label: 'Normal', icon: '🌦️' },
+          { cat: 'E', label: 'Excess', icon: '🌧️' },
+          { cat: 'LE', label: 'Large Excess', icon: '⛈️' },
+        ].map(({ cat, label, icon }) => (
           <div key={cat} className="map-legend-item">
-            <span className="map-legend-color" style={{ background: getCategoryColor(cat) }} />
+            <span className="map-legend-icon" style={{ fontSize: '18px' }}>{icon}</span>
             <span className="map-legend-label">{label}</span>
           </div>
         ))}

@@ -108,7 +108,7 @@ export default function DashboardPage() {
         />
         <MetricCard
           title="Cumulative Rainfall"
-          icon="🌊"
+          icon="💧"
           actual={d['Cumulative Actual'] || '0.00'}
           normal={d['Cumulative Normal'] || '0.00'}
           departure={d['Cumulative Departue Per'] || '0%'}
@@ -126,7 +126,7 @@ export default function DashboardPage() {
           <CategoryDistributionChart districtData={districtData} />
           <div className="top10-chart glass-card fade-in-up flex-col" style={{ animationDelay: '300ms' }}>
           <div className="chart-header">
-            <h3 className="chart-title">🏆 Top 10 Districts by Cumulative Rainfall</h3>
+            <h3 className="chart-title">📈 Top 10 Districts by Cumulative Rainfall</h3>
             <span className="chart-subtitle">Highest cumulative rainfall from March to date</span>
           </div>
           <div className="top10-chart-container">
