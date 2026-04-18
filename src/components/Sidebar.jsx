@@ -1,14 +1,6 @@
-import { NavLink, useLocation } from 'react-router-dom';
 import './Sidebar.css';
 
-const navItems = [
-  { path: '/', label: 'Dashboard', icon: '📊' },
-  { path: '/map', label: 'District Map', icon: '🗺️' },
-];
-
 export default function Sidebar() {
-  const location = useLocation();
-
   return (
     <aside className="sidebar">
       <div className="sidebar-brand">
@@ -16,36 +8,25 @@ export default function Sidebar() {
           <span className="brand-icon-text">R</span>
         </div>
         <div className="brand-info">
-          <h1 className="brand-title">RNBD</h1>
+          <h1 className="brand-title">RNB</h1>
           <p className="brand-subtitle">Roads & Buildings</p>
         </div>
       </div>
 
-      <div className="sidebar-section-label">NAVIGATION</div>
+      <div className="sidebar-section-label">OVERVIEW</div>
 
       <nav className="sidebar-nav">
-        {navItems.map((item) => (
-          <NavLink
-            key={item.path}
-            to={item.path}
-            end={item.path === '/'}
-            className={({ isActive }) =>
-              `sidebar-link ${isActive ? 'active' : ''}`
-            }
-          >
-            <span className="sidebar-link-icon">{item.icon}</span>
-            <span className="sidebar-link-label">{item.label}</span>
-            {location.pathname === item.path && (
-              <span className="sidebar-active-dot" />
-            )}
-          </NavLink>
-        ))}
+        <div className="sidebar-link active" style={{ cursor: 'default' }}>
+          <span className="sidebar-link-icon">📊</span>
+          <span className="sidebar-link-label">Main Dashboard</span>
+          <span className="sidebar-active-dot" />
+        </div>
       </nav>
 
       <div className="sidebar-footer">
         <div className="sidebar-footer-card">
           <div className="sidebar-footer-icon">🏛️</div>
-          <p className="sidebar-footer-text">Gujarat RNBD</p>
+          <p className="sidebar-footer-text">Gujarat RNB</p>
           <p className="sidebar-footer-subtext">Weather Intelligence</p>
         </div>
       </div>

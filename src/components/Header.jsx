@@ -24,8 +24,8 @@ export default function Header() {
   return (
     <header className="header">
       <div className="header-left">
-        <h2 className="header-title">Gujarat Rainfall Dashboard</h2>
-        <span className="header-subtitle">Real-time Weather Intelligence for RNBD</span>
+        <h2 className="header-title">RNB Weather Dashboard</h2>
+        <span className="header-subtitle">Real-time Weather Intelligence for RNB</span>
       </div>
       <div className="header-right">
         <div className="header-datetime">

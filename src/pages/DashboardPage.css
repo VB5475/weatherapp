@@ -90,3 +90,24 @@
   font-size: 14px;
   color: var(--text-muted);
 }
+
+/* Map Section Layout */
+.map-split {
+  display: grid;
+  grid-template-columns: 5fr 4fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.map-split-left {
+  position: relative;
+}
+
+.map-split-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.top10-chart {
+  padding: 20px;
+}

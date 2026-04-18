@@ -67,8 +67,8 @@ function getMarkerRadius(cumulativeActual) {
 export default function GujaratMap({ districtData, selectedDistrict }) {
   const districtMap = {};
 
-  const targetCenter = selectedDistrict && DISTRICT_COORDS[selectedDistrict] 
-    ? DISTRICT_COORDS[selectedDistrict] 
+  const targetCenter = selectedDistrict && DISTRICT_COORDS[selectedDistrict]
+    ? DISTRICT_COORDS[selectedDistrict]
     : GUJARAT_CENTER;
   const targetZoom = selectedDistrict ? 9 : GUJARAT_ZOOM;
   if (districtData) {
