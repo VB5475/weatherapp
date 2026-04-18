@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import MetricCard from '../components/MetricCard';
-import { ActualVsNormalChart, CategoryDistributionChart } from '../components/RainfallCharts';
+import { CategoryDistributionChart } from '../components/RainfallCharts';
 import GujaratMap from '../components/GujaratMap';
 import { fetchStateRainfall, fetchDistrictRainfall } from '../services/api';
 import { Link } from 'react-router-dom';
@@ -117,18 +117,14 @@ export default function DashboardPage() {
         />
       </div>
 
-      {/* Charts Row */}
-      <div className="grid-2">
-        <ActualVsNormalChart stateData={stateData} />
-        <CategoryDistributionChart districtData={districtData} />
-      </div>
-
-      {/* Map + Top 10 Chart Split */}
+      {/* Map + Right Charts Split */}
       <div className="map-split">
-        <div className="map-split-left glass-card">
+        <div className="map-split-left">
           <GujaratMap districtData={districtData} selectedDistrict={selectedDistrict} />
         </div>
-        <div className="map-split-right glass-card top10-chart flex-col">
+        <div className="map-split-right">
+          <CategoryDistributionChart districtData={districtData} />
+          <div className="top10-chart glass-card fade-in-up flex-col" style={{ animationDelay: '300ms' }}>
           <div className="chart-header">
             <h3 className="chart-title">🏆 Top 10 Districts by Cumulative Rainfall</h3>
             <span className="chart-subtitle">Highest cumulative rainfall from March to date</span>
@@ -137,7 +133,7 @@ export default function DashboardPage() {
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={top10}
-                margin={{ top: 20, right: 30, left: 5, bottom: 25 }}
+                margin={{ top: 20, right: 30, left: 5, bottom: 85 }}
               >
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.05)" vertical={false} />
               <XAxis
@@ -182,5 +178,6 @@ export default function DashboardPage() {
       </div>
     </div>
   </div>
+</div>
   );
 }

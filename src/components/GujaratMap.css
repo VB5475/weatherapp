@@ -1,9 +1,14 @@
 .gujarat-map-wrapper {
   padding: 22px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
 }
 
 .leaflet-map-container {
-  height: 400px;
+  flex: 1;
+  min-height: 480px; /* Base height if not stretched */
   border-radius: var(--radius-lg);
   overflow: hidden;
   border: 1px solid var(--border-subtle);

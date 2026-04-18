@@ -18,7 +18,7 @@ export default function Sidebar() {
       <nav className="sidebar-nav">
         <div className="sidebar-link active" style={{ cursor: 'default' }}>
           <span className="sidebar-link-icon">📊</span>
-          <span className="sidebar-link-label">Main Dashboard</span>
+          <span className="sidebar-link-label">Weather Dash Board</span>
           <span className="sidebar-active-dot" />
         </div>
       </nav>

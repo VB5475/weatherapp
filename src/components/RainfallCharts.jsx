@@ -32,6 +32,21 @@ function CustomTooltip({ active, payload, label }) {
   );
 }
 
+function CustomPieTooltip({ active, payload }) {
+  if (!active || !payload || !payload.length) return null;
+  const data = payload[0].payload;
+  return (
+    <div className="chart-tooltip" style={{ maxWidth: '250px' }}>
+      <p className="chart-tooltip-label" style={{ borderBottom: '1px solid rgba(0,0,0,0.1)', paddingBottom: '4px', marginBottom: '8px' }}>
+        <strong>{data.name}</strong> • {data.value} Districts
+      </p>
+      <div className="chart-tooltip-districts" style={{ fontSize: '11px', color: '#64748B', lineHeight: '1.4' }}>
+        {data.districts.join(', ')}
+      </div>
+    </div>
+  );
+}
+
 export function ActualVsNormalChart({ stateData }) {
   if (!stateData || stateData.length === 0) return null;
   const d = stateData[0];
@@ -68,6 +83,8 @@ export function CategoryDistributionChart({ districtData }) {
   if (!districtData || districtData.length === 0) return null;
 
   const categoryCounts = {};
+  const categoryDistricts = {};
+  
   districtData.forEach(d => {
     const cat = d['Monthly Category'] ? d['Monthly Category'].trim() : 'NR';
     const label =
@@ -75,10 +92,17 @@ export function CategoryDistributionChart({ districtData }) {
       cat === 'E' ? 'Excess' :
       cat === 'N' ? 'Normal' :
       cat === 'D' ? 'Deficient' : 'No Rain';
+    
     categoryCounts[label] = (categoryCounts[label] || 0) + 1;
+    if (!categoryDistricts[label]) categoryDistricts[label] = [];
+    categoryDistricts[label].push(d.District);
   });
 
-  const pieData = Object.entries(categoryCounts).map(([name, value]) => ({ name, value }));
+  const pieData = Object.entries(categoryCounts).map(([name, value]) => ({ 
+    name, 
+    value,
+    districts: categoryDistricts[name]
+  }));
 
   return (
     <div className="chart-container glass-card fade-in-up" style={{ animationDelay: '500ms' }}>
@@ -102,14 +126,7 @@ export function CategoryDistributionChart({ districtData }) {
               <Cell key={index} fill={CATEGORY_COLORS[entry.name] || '#64748B'} />
             ))}
           </Pie>
-          <Tooltip
-            contentStyle={{
-              background: 'rgba(255, 255, 255, 0.95)',
-              border: '1px solid rgba(0,0,0,0.1)',
-              borderRadius: '8px',
-              color: '#0F172A',
-            }}
-          />
+          <Tooltip content={<CustomPieTooltip />} />
         </PieChart>
       </ResponsiveContainer>
     </div>

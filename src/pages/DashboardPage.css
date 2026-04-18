@@ -101,21 +101,26 @@
 
 .map-split-left {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .map-split-right {
   display: flex;
   flex-direction: column;
+  gap: 24px;
 }
 
 .top10-chart {
   padding: 22px;
   display: flex;
   flex-direction: column;
+  flex: 1; /* let it grow */
 }
 
 .top10-chart-container {
   flex: 1;
-  min-height: 0;
+  min-height: 250px;
   margin-top: 10px;
 }
