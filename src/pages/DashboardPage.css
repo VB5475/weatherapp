@@ -96,7 +96,7 @@
   display: grid;
   grid-template-columns: 5fr 4fr;
   gap: 24px;
-  align-items: start;
+  align-items: stretch;
 }
 
 .map-split-left {
@@ -109,5 +109,13 @@
 }
 
 .top10-chart {
-  padding: 20px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+}
+
+.top10-chart-container {
+  flex: 1;
+  min-height: 0;
+  margin-top: 10px;
 }

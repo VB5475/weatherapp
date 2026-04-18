@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
+import { useLocation, Link } from 'react-router-dom';
 import './Header.css';
 
 export default function Header() {
   const [dateTime, setDateTime] = useState(new Date());
+  const location = useLocation();
 
   useEffect(() => {
     const timer = setInterval(() => setDateTime(new Date()), 1000);
@@ -24,8 +26,18 @@ export default function Header() {
   return (
     <header className="header">
       <div className="header-left">
-        <h2 className="header-title">RNB Weather Dashboard</h2>
-        <span className="header-subtitle">Real-time Weather Intelligence for RNB</span>
+        {location.pathname === '/districts' && (
+          <Link to="/" className="home-btn" title="Back to Dashboard">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+          </Link>
+        )}
+        <div className="header-titles">
+          <h2 className="header-title">RNB Weather Dashboard</h2>
+          <span className="header-subtitle">Real-time Weather Intelligence for RNB</span>
+        </div>
       </div>
       <div className="header-right">
         <div className="header-datetime">

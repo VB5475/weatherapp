@@ -28,8 +28,36 @@
 
 .header-left {
   display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-titles {
+  display: flex;
   flex-direction: column;
   gap: 2px;
+}
+
+.home-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: white;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border: 1px solid var(--border-light);
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+}
+
+.home-btn:hover {
+  color: var(--accent-primary);
+  border-color: var(--border-accent);
+  background: rgba(14, 165, 233, 0.05);
 }
 
 .header-right {
