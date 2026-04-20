@@ -1,6 +1,9 @@
+import { NavLink } from 'react-router-dom';
 import './Sidebar.css';
 
-export default function Sidebar() {
+const showNewDesign = import.meta.env.VITE_NEW_DESIGN === 'true';
+
+export default function Sidebar({ newDesignMode, onToggleMode }) {
   return (
     <aside className="sidebar">
       <div className="sidebar-brand">
@@ -16,19 +19,37 @@ export default function Sidebar() {
       <div className="sidebar-section-label">OVERVIEW</div>
 
       <nav className="sidebar-nav">
-        <div className="sidebar-link active" style={{ cursor: 'default' }}>
-          <span className="sidebar-link-icon">🌦️</span>
-          <span className="sidebar-link-label">Weather Dashboard</span>
-          <span className="sidebar-active-dot" />
-        </div>
+        {newDesignMode ? (
+          /* New Design mode — only show the New Design tab */
+          <div className="sidebar-link active" style={{ cursor: 'default' }}>
+            <span className="sidebar-link-icon">🚀</span>
+            <span className="sidebar-link-label">New Design</span>
+          </div>
+        ) : (
+          /* Weather mode — show the Weather Dashboard tab */
+          <NavLink to="/" end className={({ isActive }) => `sidebar-link${isActive ? ' active' : ''}`}>
+            <span className="sidebar-link-icon">🌦️</span>
+            <span className="sidebar-link-label">Weather Dashboard</span>
+          </NavLink>
+        )}
       </nav>
 
       <div className="sidebar-footer">
-        <div className="sidebar-footer-card">
-          <div className="sidebar-footer-icon">🏛️</div>
-          <p className="sidebar-footer-text">Gujarat RNB</p>
-          <p className="sidebar-footer-subtext">Weather Intelligence</p>
-        </div>
+        {showNewDesign ? (
+          <div className="sidebar-footer-card sidebar-footer-card-clickable" onClick={onToggleMode}>
+            <div className="sidebar-footer-icon">🏛️</div>
+            <p className="sidebar-footer-text">Gujarat RNB</p>
+            <p className="sidebar-footer-subtext">
+              {newDesignMode ? '← Back to Weather' : 'View New Dashboard →'}
+            </p>
+          </div>
+        ) : (
+          <div className="sidebar-footer-card">
+            <div className="sidebar-footer-icon">🏛️</div>
+            <p className="sidebar-footer-text">Gujarat RNB</p>
+            <p className="sidebar-footer-subtext">Weather Intelligence</p>
+          </div>
+        )}
       </div>
     </aside>
   );

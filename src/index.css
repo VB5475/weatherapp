@@ -155,3 +155,85 @@ body {
   .grid-4 { grid-template-columns: 1fr; }
   .grid-2 { grid-template-columns: 1fr; }
 }
+
+/* ═══════════════════════════════════════════
+   Global Dark Mode Overrides
+   Applied when .dark-mode is on the app root
+   ═══════════════════════════════════════════ */
+.dark-mode {
+  --bg-primary: #0F172A;
+  --bg-secondary: #1E293B;
+  --bg-card: rgba(30, 41, 59, 0.85);
+  --bg-card-hover: rgba(30, 41, 59, 1);
+  --bg-sidebar: rgba(15, 23, 42, 0.97);
+
+  --accent-primary: #38BDF8;
+  --accent-primary-dim: rgba(56, 189, 248, 0.12);
+  --accent-secondary: #22D3EE;
+  --accent-green: #34D399;
+  --accent-green-dim: rgba(52, 211, 153, 0.15);
+  --accent-red: #F87171;
+  --accent-red-dim: rgba(248, 113, 113, 0.15);
+  --accent-amber: #FBBF24;
+  --accent-amber-dim: rgba(251, 191, 36, 0.15);
+  --accent-purple: #A78BFA;
+  --accent-purple-dim: rgba(167, 139, 250, 0.15);
+
+  --text-primary: #F1F5F9;
+  --text-secondary: #CBD5E1;
+  --text-muted: #94A3B8;
+
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-light: rgba(255, 255, 255, 0.1);
+  --border-accent: rgba(56, 189, 248, 0.25);
+
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.3);
+  --shadow-glow: 0 4px 12px rgba(56, 189, 248, 0.15);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.4);
+
+  --glass-bg: rgba(30, 41, 59, 0.8);
+}
+
+/* Body background in dark mode */
+.dark-mode {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Sidebar dark overrides */
+.dark-mode .sidebar {
+  background: var(--bg-sidebar);
+  border-right-color: var(--border-subtle);
+}
+
+.dark-mode .sidebar-link:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Header dark overrides */
+.dark-mode .header {
+  background: rgba(15, 23, 42, 0.92);
+  border-bottom-color: var(--border-subtle);
+}
+
+.dark-mode .header-theme-toggle {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .header-theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.dark-mode .header-toggle-label {
+  color: var(--text-secondary);
+}
+
+/* Scrollbar dark */
+.dark-mode ::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+.dark-mode ::-webkit-scrollbar-thumb:hover {
+  background: #64748B;
+}

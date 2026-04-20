@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import './Header.css';
 
-export default function Header() {
+export default function Header({ newDesignMode, darkMode, onToggleDarkMode }) {
   const [dateTime, setDateTime] = useState(new Date());
   const location = useLocation();
 
@@ -26,7 +26,7 @@ export default function Header() {
   return (
     <header className="header">
       <div className="header-left">
-        {location.pathname === '/districts' && (
+        {!newDesignMode && location.pathname === '/districts' && (
           <Link to="/" className="home-btn" title="Back to Dashboard">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
@@ -35,11 +35,21 @@ export default function Header() {
           </Link>
         )}
         <div className="header-titles">
-          <h2 className="header-title">RNB Weather Dashboard</h2>
-          <span className="header-subtitle">Real-time Weather Intelligence for RNB</span>
+          <h2 className="header-title">
+            {newDesignMode ? 'RNB New Design Dashboard' : 'RNB Weather Dashboard'}
+          </h2>
+          <span className="header-subtitle">
+            {newDesignMode ? 'Roads & Buildings Department — Gujarat' : 'Real-time Weather Intelligence for RNB'}
+          </span>
         </div>
       </div>
       <div className="header-right">
+        {newDesignMode && (
+          <div className="header-theme-toggle" onClick={onToggleDarkMode}>
+            <span className="header-toggle-label">{darkMode ? '🌙 Dark' : '☀️ Light'}</span>
+            <div className={`header-toggle-switch${darkMode ? ' on' : ''}`} />
+          </div>
+        )}
         <div className="header-datetime">
           <span className="header-date">{formattedDate}</span>
           <span className="header-time">{formattedTime}</span>
@@ -52,3 +62,4 @@ export default function Header() {
     </header>
   );
 }
+
