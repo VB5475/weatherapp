@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import './Header.css';
+import { NEW_DESIGN_MODULES } from '../dummyModules';
 
-export default function Header({ newDesignMode, darkMode, onToggleDarkMode }) {
+export default function Header({ newDesignMode, darkMode, onToggleDarkMode, activeSubModule }) {
   const [dateTime, setDateTime] = useState(new Date());
   const location = useLocation();
 
@@ -23,6 +24,22 @@ export default function Header({ newDesignMode, darkMode, onToggleDarkMode }) {
     second: '2-digit',
   });
 
+  let newDesignTitle = 'RNB New Design Dashboard';
+  let newDesignSubtitle = 'Roads & Buildings Department — Gujarat';
+
+  if (newDesignMode && activeSubModule) {
+    for (const mainMod of NEW_DESIGN_MODULES) {
+      const subMod = mainMod.submodules.find(s => s.id === activeSubModule);
+      if (subMod) {
+        newDesignTitle = subMod.name;
+        newDesignSubtitle = `${mainMod.name} > Dashboard Overview`;
+        break;
+      }
+    }
+  } else if (newDesignMode && !activeSubModule) {
+    newDesignSubtitle = 'Integrated Module > All Modules Overview';
+  }
+
   return (
     <header className="header">
       <div className="header-left">
@@ -36,10 +53,10 @@ export default function Header({ newDesignMode, darkMode, onToggleDarkMode }) {
         )}
         <div className="header-titles">
           <h2 className="header-title">
-            {newDesignMode ? 'RNB New Design Dashboard' : 'RNB Weather Dashboard'}
+            {newDesignMode ? newDesignTitle : 'RNB Weather Dashboard'}
           </h2>
           <span className="header-subtitle">
-            {newDesignMode ? 'Roads & Buildings Department — Gujarat' : 'Real-time Weather Intelligence for RNB'}
+            {newDesignMode ? newDesignSubtitle : 'Real-time Weather Intelligence for RNB'}
           </span>
         </div>
       </div>
