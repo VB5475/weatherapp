@@ -4,6 +4,7 @@ import { CategoryDistributionChart } from '../components/RainfallCharts';
 import GujaratMap from '../components/GujaratMap';
 import { fetchStateRainfall, fetchDistrictRainfall } from '../services/api';
 import { Link } from 'react-router-dom';
+import WingDailyTrendChart from '../components/WingDailyTrendChart';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer,
@@ -178,6 +179,11 @@ export default function DashboardPage() {
       </div>
     </div>
   </div>
-</div>
-  );
+    
+    {/* Wing-wise Daily Trend Section */}
+    <div className="full-width-chart-section">
+      <WingDailyTrendChart />
+    </div>
+  </div>
+);
 }
