@@ -81,10 +81,10 @@ export function ActualVsNormalChart({ stateData }) {
       <ResponsiveContainer width="100%" height={280}>
         <BarChart data={barData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.05)" />
-          <XAxis dataKey="period" tick={{ fill: '#334155', fontSize: 12 }} axisLine={{ stroke: 'rgba(0,0,0,0.1)' }} />
-          <YAxis tick={{ fill: '#334155', fontSize: 12 }} axisLine={{ stroke: 'rgba(0,0,0,0.1)' }} />
+          <XAxis dataKey="period" tick={{ fill: '#334155', fontSize: 14 }} axisLine={{ stroke: 'rgba(0,0,0,0.1)' }} />
+          <YAxis tick={{ fill: '#334155', fontSize: 14 }} axisLine={{ stroke: 'rgba(0,0,0,0.1)' }} />
           <Tooltip content={<CustomTooltip />} />
-          <Legend wrapperStyle={{ fontSize: 12, color: '#334155' }} />
+          <Legend wrapperStyle={{ fontSize: 14, color: '#334155' }} />
           <Bar dataKey="actual" name="Actual" fill={CHART_COLORS.actual} radius={[6, 6, 0, 0]} />
           <Bar dataKey="normal" name="Normal" fill={CHART_COLORS.normal} radius={[6, 6, 0, 0]} />
         </BarChart>
@@ -98,22 +98,22 @@ export function CategoryDistributionChart({ districtData }) {
 
   const categoryCounts = {};
   const categoryDistricts = {};
-  
+
   districtData.forEach(d => {
     const cat = d['Monthly Category'] ? d['Monthly Category'].trim() : 'NR';
     const label =
       cat === 'LE' ? 'Large Excess' :
-      cat === 'E' ? 'Excess' :
-      cat === 'N' ? 'Normal' :
-      cat === 'D' ? 'Deficient' : 'No Rain';
-    
+        cat === 'E' ? 'Excess' :
+          cat === 'N' ? 'Normal' :
+            cat === 'D' ? 'Deficient' : 'No Rain';
+
     categoryCounts[label] = (categoryCounts[label] || 0) + 1;
     if (!categoryDistricts[label]) categoryDistricts[label] = [];
     categoryDistricts[label].push(d.District);
   });
 
-  const pieData = Object.entries(categoryCounts).map(([name, value]) => ({ 
-    name, 
+  const pieData = Object.entries(categoryCounts).map(([name, value]) => ({
+    name,
     value,
     districts: categoryDistricts[name]
   }));
@@ -121,7 +121,7 @@ export function CategoryDistributionChart({ districtData }) {
   return (
     <div className="chart-container glass-card fade-in-up" style={{ animationDelay: '500ms' }}>
       <div className="chart-header">
-        <h3 className="chart-title">🎯 District Category Distribution</h3>
+        <h3 className="chart-title">📊 District Category Distribution</h3>
         <span className="chart-subtitle">Monthly rainfall categories across Gujarat</span>
       </div>
       <ResponsiveContainer width="100%" height={280}>
@@ -142,7 +142,7 @@ export function CategoryDistributionChart({ districtData }) {
             ))}
           </Pie>
           <Tooltip content={<CustomPieTooltip />} />
-          <Legend wrapperStyle={{ fontSize: 12, color: '#334155' }} />
+          <Legend wrapperStyle={{ fontSize: 14, color: '#334155' }} />
         </PieChart>
       </ResponsiveContainer>
     </div>

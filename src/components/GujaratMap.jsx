@@ -66,7 +66,9 @@ const CATEGORY_ICONS = {
 
 const createMarkerIcon = (cat, sizeMultiplier = 1) => {
   const emoji = CATEGORY_ICONS[cat] || '☀️';
-  const size = 16 + (sizeMultiplier * 4); // scale up based on rainfall
+  // If it's No Rain (NR), keep a constant small size
+  const finalScale = cat === 'NR' ? 1 : sizeMultiplier;
+  const size = 16 + (finalScale * 4); 
   return L.divIcon({
     html: `<div style="font-size: ${size}px; line-height: 1; text-align: center; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));">${emoji}</div>`,
     className: 'custom-weather-icon',
