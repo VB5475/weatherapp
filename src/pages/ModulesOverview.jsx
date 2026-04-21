@@ -1,6 +1,7 @@
 import React from 'react';
 import { NEW_DESIGN_MODULES } from '../dummyModules';
 import './ModulesOverview.css';
+import { statsGridCols } from '../utils/gridCols';
 
 export default function ModulesOverview({ darkMode, onSubModuleClick }) {
   return (
@@ -12,11 +13,11 @@ export default function ModulesOverview({ darkMode, onSubModuleClick }) {
             <h3 className="module-section-title">{mainMod.name}</h3>
             <button className="collapse-section-btn">—</button>
           </div>
-          
+
           <div className="submodules-grid">
             {mainMod.submodules.map((subMod, idx) => (
-              <div 
-                key={subMod.id} 
+              <div
+                key={subMod.id}
                 className="submodule-card stagger-item"
                 style={{ '--idx': idx }}
                 onClick={() => onSubModuleClick(subMod.id)}
@@ -33,9 +34,12 @@ export default function ModulesOverview({ darkMode, onSubModuleClick }) {
                   </div>
                 </div>
 
-                <div className="submodule-stats-grid">
-                  {subMod.stats.map((stat, idx) => (
-                    <div key={idx} className={`stat-box color-${stat.color}`}>
+                <div
+                  className="submodule-stats-grid"
+                  style={{ gridTemplateColumns: statsGridCols(subMod.stats.length) }}
+                >
+                  {subMod.stats.map((stat, i) => (
+                    <div key={i} className={`stat-box color-${stat.color}`}>
                       <div className="stat-label">{stat.label}</div>
                       <div className="stat-value">{stat.value}</div>
                     </div>

@@ -4,14 +4,15 @@ import {
   PieChart, Pie, Cell, ResponsiveContainer,
   LineChart, Line, ComposedChart, Area,
 } from 'recharts';
-import { 
-  roadsStateData, 
-  roadsPanchayatData, 
-  buildingsStateData, 
-  contractorRegistrationData 
+import {
+  roadsStateData,
+  roadsPanchayatData,
+  buildingsStateData,
+  contractorRegistrationData
 } from './domainData';
 import { NEW_DESIGN_MODULES } from '../dummyModules';
 import './SubModuleView.css';
+import { statsGridCols } from '../utils/gridCols';
 
 const FILTER_OPTIONS = ['quarterly', 'monthly', 'weekly'];
 const ROWS_PER_PAGE = 6;
@@ -104,14 +105,14 @@ export default function SubModuleView({ darkMode = false, submoduleId, setActive
     }
   }, [submoduleId]);
 
-  const { 
-    kpiData, 
-    districtProjectData, 
-    budgetAllocationData, 
-    expenditureVsTargetData, 
-    progressTrendData, 
-    resourceAllocationData, 
-    activeProjectsData 
+  const {
+    kpiData,
+    districtProjectData,
+    budgetAllocationData,
+    expenditureVsTargetData,
+    progressTrendData,
+    resourceAllocationData,
+    activeProjectsData
   } = dataset;
 
   /* ── Grid Data ── */
@@ -169,7 +170,7 @@ export default function SubModuleView({ darkMode = false, submoduleId, setActive
 
       {/* Intra-Module Navigation Header */}
       <div className="submodule-nav-header">
-        <button 
+        <button
           className="submodule-nav-btn"
           disabled={!prevMod}
           onClick={() => prevMod && setActiveSubModule(prevMod.id)}
@@ -178,7 +179,7 @@ export default function SubModuleView({ darkMode = false, submoduleId, setActive
           ← Previous
         </button>
         <div className="submodule-nav-title">{currentModName}</div>
-        <button 
+        <button
           className="submodule-nav-btn"
           disabled={!nextMod}
           onClick={() => nextMod && setActiveSubModule(nextMod.id)}
@@ -188,19 +189,21 @@ export default function SubModuleView({ darkMode = false, submoduleId, setActive
         </button>
       </div>
 
-      {/* ── KPI Cards ── */}
-      <div className="nd-kpi-grid">
+      {/* ── KPI Grid (Synchronized with Home Screen style) ── */}
+      <div className="nd-kpi-grid submodule-stats-grid" style={{ gridTemplateColumns: statsGridCols(kpiData.length) }}>
         {kpiData.map((k, i) => (
-          <div className="nd-kpi-card" key={i}>
-            <div className="nd-kpi-header">
-              <span className="nd-kpi-icon">{k.icon}</span>
-              <span className={`nd-kpi-change ${k.trend}`}>{k.change}</span>
+          <div key={i} className={`stat-box color-${k.color || 'blue'} nd-kpi-box`}>
+            <div className="stat-label-row">
+              <span className="stat-label">{k.title}</span>
+              {k.icon && <span className="stat-box-icon">{k.icon}</span>}
             </div>
-            <div className="nd-kpi-value">
+            <div className="stat-value">
               {k.value}
-              {k.unit && <span className="nd-kpi-unit">{k.unit}</span>}
+              {k.unit && <span className="stat-unit">{k.unit}</span>}
             </div>
-            <div className="nd-kpi-title">{k.title}</div>
+            <div className={`stat-trend-label ${k.trend}`}>
+              {k.change}
+            </div>
           </div>
         ))}
       </div>
@@ -208,56 +211,56 @@ export default function SubModuleView({ darkMode = false, submoduleId, setActive
       {/* ── Row 1: Bar + Pie ── */}
       <div className="nd-charts-row">
         {/* Bar Chart */}
-          <div className="nd-chart-card stagger-item" style={{ '--idx': 0 }}>
-            <div className="nd-chart-header">
-              <h3 className="nd-chart-title">🏗️ District-wise Project Completion</h3>
-              <FilterTabs active={filters.bar} onChange={v => setFilter('bar', v)} />
-            </div>
-            <div className="nd-chart-body" key={`bar-${submoduleId}`}>
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={districtProjectData[filters.bar]} margin={{ top: 10, right: 20, left: -5, bottom: 5 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke={gridStroke} vertical={false} />
-                  <XAxis dataKey="district" tick={axisStyle} axisLine={false} tickLine={false} />
-                  <YAxis tick={axisStyle} axisLine={false} tickLine={false} />
-                  <Tooltip content={<NDTooltip />} />
-                  <Legend wrapperStyle={{ fontSize: 13, fontWeight: 600 }} />
-                  <Bar dataKey="completed" name="Completed" fill="var(--nd-accent-teal)" radius={[6, 6, 0, 0]} barSize={24} animationDuration={800} animationEasing="ease-out" />
-                  <Bar dataKey="pending" name="Pending" fill="var(--nd-accent-saffron)" radius={[6, 6, 0, 0]} barSize={24} animationDuration={800} animationEasing="ease-out" animationBegin={200} />
-                </BarChart>
+        <div className="nd-chart-card stagger-item" style={{ '--idx': 0 }}>
+          <div className="nd-chart-header">
+            <h3 className="nd-chart-title">🏗️ District-wise Project Completion</h3>
+            <FilterTabs active={filters.bar} onChange={v => setFilter('bar', v)} />
+          </div>
+          <div className="nd-chart-body" key={`bar-${submoduleId}`}>
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={districtProjectData[filters.bar]} margin={{ top: 10, right: 20, left: -5, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke={gridStroke} vertical={false} />
+                <XAxis dataKey="district" tick={axisStyle} axisLine={false} tickLine={false} />
+                <YAxis tick={axisStyle} axisLine={false} tickLine={false} />
+                <Tooltip content={<NDTooltip />} />
+                <Legend wrapperStyle={{ fontSize: 13, fontWeight: 600 }} />
+                <Bar dataKey="completed" name="Completed" fill="var(--nd-accent-teal)" radius={[6, 6, 0, 0]} barSize={24} animationDuration={800} animationEasing="ease-out" />
+                <Bar dataKey="pending" name="Pending" fill="var(--nd-accent-saffron)" radius={[6, 6, 0, 0]} barSize={24} animationDuration={800} animationEasing="ease-out" animationBegin={200} />
+              </BarChart>
             </ResponsiveContainer>
           </div>
         </div>
 
         {/* Pie Chart */}
-          <div className="nd-chart-card stagger-item" style={{ '--idx': 1 }}>
-            <div className="nd-chart-header">
-              <h3 className="nd-chart-title">💰 Budget Allocation by Category</h3>
-              <FilterTabs active={filters.pie} onChange={v => setFilter('pie', v)} />
-            </div>
-            <div className="nd-chart-body" key={`pie-${submoduleId}`}>
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={budgetAllocationData[filters.pie]}
-                    cx="50%"
-                    cy="50%"
-                    innerRadius={70}
-                    outerRadius={120}
-                    paddingAngle={3}
-                    dataKey="value"
-                    labelLine={false}
-                    label={renderPieLabel}
-                    animationDuration={800}
-                    animationEasing="ease-out"
-                    animationBegin={300}
-                  >
-                    {budgetAllocationData[filters.pie].map((entry, i) => (
-                      <Cell key={i} fill={entry.color} />
-                    ))}
-                  </Pie>
-                  <Tooltip content={<NDTooltip />} />
-                  <Legend wrapperStyle={{ fontSize: 13, fontWeight: 600 }} />
-                </PieChart>
+        <div className="nd-chart-card stagger-item" style={{ '--idx': 1 }}>
+          <div className="nd-chart-header">
+            <h3 className="nd-chart-title">💰 Budget Allocation by Category</h3>
+            <FilterTabs active={filters.pie} onChange={v => setFilter('pie', v)} />
+          </div>
+          <div className="nd-chart-body" key={`pie-${submoduleId}`}>
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={budgetAllocationData[filters.pie]}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={70}
+                  outerRadius={120}
+                  paddingAngle={3}
+                  dataKey="value"
+                  labelLine={false}
+                  label={renderPieLabel}
+                  animationDuration={800}
+                  animationEasing="ease-out"
+                  animationBegin={300}
+                >
+                  {budgetAllocationData[filters.pie].map((entry, i) => (
+                    <Cell key={i} fill={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip content={<NDTooltip />} />
+                <Legend wrapperStyle={{ fontSize: 13, fontWeight: 600 }} />
+              </PieChart>
             </ResponsiveContainer>
           </div>
         </div>
@@ -266,48 +269,48 @@ export default function SubModuleView({ darkMode = false, submoduleId, setActive
       {/* ── Row 2: Bar-Line Combo + Line ── */}
       <div className="nd-charts-row">
         {/* Bar-Line Combo */}
-          <div className="nd-chart-card stagger-item" style={{ '--idx': 2 }}>
-            <div className="nd-chart-header">
-              <h3 className="nd-chart-title">📊 Expenditure vs Target</h3>
-              <FilterTabs active={filters.combo} onChange={v => setFilter('combo', v)} />
-            </div>
-            <div className="nd-chart-body" key={`combo-${submoduleId}`}>
-              <ResponsiveContainer width="100%" height="100%">
-                <ComposedChart data={expenditureVsTargetData[filters.combo]} margin={{ top: 10, right: 20, left: -5, bottom: 5 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke={gridStroke} vertical={false} />
-                  <XAxis dataKey="month" tick={axisStyle} axisLine={false} tickLine={false} />
-                  <YAxis tick={axisStyle} axisLine={false} tickLine={false} unit=" Cr" />
-                  <Tooltip content={<NDTooltip />} />
-                  <Legend wrapperStyle={{ fontSize: 13, fontWeight: 600 }} />
-                  <Bar dataKey="actual" name="Actual (₹Cr)" fill="var(--nd-accent-blue)" radius={[6, 6, 0, 0]} barSize={28} animationDuration={800} animationEasing="ease-out" />
-                  <Line type="monotone" dataKey="target" name="Target (₹Cr)" stroke="var(--nd-accent-red)" strokeWidth={3} dot={{ r: 5, fill: 'var(--nd-accent-red)' }} animationDuration={800} animationEasing="ease-out" animationBegin={400} />
-                </ComposedChart>
+        <div className="nd-chart-card stagger-item" style={{ '--idx': 2 }}>
+          <div className="nd-chart-header">
+            <h3 className="nd-chart-title">📊 Expenditure vs Target</h3>
+            <FilterTabs active={filters.combo} onChange={v => setFilter('combo', v)} />
+          </div>
+          <div className="nd-chart-body" key={`combo-${submoduleId}`}>
+            <ResponsiveContainer width="100%" height="100%">
+              <ComposedChart data={expenditureVsTargetData[filters.combo]} margin={{ top: 10, right: 20, left: -5, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke={gridStroke} vertical={false} />
+                <XAxis dataKey="month" tick={axisStyle} axisLine={false} tickLine={false} />
+                <YAxis tick={axisStyle} axisLine={false} tickLine={false} unit=" Cr" />
+                <Tooltip content={<NDTooltip />} />
+                <Legend wrapperStyle={{ fontSize: 13, fontWeight: 600 }} />
+                <Bar dataKey="actual" name="Actual (₹Cr)" fill="var(--nd-accent-blue)" radius={[6, 6, 0, 0]} barSize={28} animationDuration={800} animationEasing="ease-out" />
+                <Line type="monotone" dataKey="target" name="Target (₹Cr)" stroke="var(--nd-accent-red)" strokeWidth={3} dot={{ r: 5, fill: 'var(--nd-accent-red)' }} animationDuration={800} animationEasing="ease-out" animationBegin={400} />
+              </ComposedChart>
             </ResponsiveContainer>
           </div>
         </div>
 
         {/* Line Chart */}
-          <div className="nd-chart-card stagger-item" style={{ '--idx': 3 }}>
-            <div className="nd-chart-header">
-              <h3 className="nd-chart-title">📈 Monthly Progress Trend</h3>
-              <FilterTabs active={filters.line} onChange={v => setFilter('line', v)} />
-            </div>
-            <div className="nd-chart-body" key={`line-${submoduleId}`}>
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={progressTrendData[filters.line]} margin={{ top: 10, right: 20, left: -5, bottom: 5 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke={gridStroke} vertical={false} />
-                  <XAxis dataKey="month" tick={axisStyle} axisLine={false} tickLine={false} />
-                  <YAxis tick={axisStyle} axisLine={false} tickLine={false} unit="%" />
-                  <Tooltip content={<NDTooltip />} />
-                  <Legend wrapperStyle={{ fontSize: 13, fontWeight: 600 }} />
-                  <Line type="monotone" dataKey="roads" name="Roads" stroke="var(--nd-accent-teal)" strokeWidth={3} dot={{ r: 5 }} animationDuration={800} animationEasing="ease-out" animationBegin={200} />
-                  <Line type="monotone" dataKey="buildings" name="Buildings" stroke="var(--nd-accent-purple)" strokeWidth={3} dot={{ r: 5 }} animationDuration={800} animationEasing="ease-out" animationBegin={400} />
-                  <Line type="monotone" dataKey="bridges" name="Bridges" stroke="var(--nd-accent-saffron)" strokeWidth={3} dot={{ r: 5 }} animationDuration={800} animationEasing="ease-out" animationBegin={600} />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
+        <div className="nd-chart-card stagger-item" style={{ '--idx': 3 }}>
+          <div className="nd-chart-header">
+            <h3 className="nd-chart-title">📈 Monthly Progress Trend</h3>
+            <FilterTabs active={filters.line} onChange={v => setFilter('line', v)} />
+          </div>
+          <div className="nd-chart-body" key={`line-${submoduleId}`}>
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={progressTrendData[filters.line]} margin={{ top: 10, right: 20, left: -5, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke={gridStroke} vertical={false} />
+                <XAxis dataKey="month" tick={axisStyle} axisLine={false} tickLine={false} />
+                <YAxis tick={axisStyle} axisLine={false} tickLine={false} unit="%" />
+                <Tooltip content={<NDTooltip />} />
+                <Legend wrapperStyle={{ fontSize: 13, fontWeight: 600 }} />
+                <Line type="monotone" dataKey="roads" name="Roads" stroke="var(--nd-accent-teal)" strokeWidth={3} dot={{ r: 5 }} animationDuration={800} animationEasing="ease-out" animationBegin={200} />
+                <Line type="monotone" dataKey="buildings" name="Buildings" stroke="var(--nd-accent-purple)" strokeWidth={3} dot={{ r: 5 }} animationDuration={800} animationEasing="ease-out" animationBegin={400} />
+                <Line type="monotone" dataKey="bridges" name="Bridges" stroke="var(--nd-accent-saffron)" strokeWidth={3} dot={{ r: 5 }} animationDuration={800} animationEasing="ease-out" animationBegin={600} />
+              </LineChart>
+            </ResponsiveContainer>
           </div>
         </div>
+      </div>
 
       {/* ── Row 3: Multi-Bar (full width) ── */}
       <div className="nd-charts-row">

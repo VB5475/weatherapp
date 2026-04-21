@@ -10,15 +10,11 @@ export const NEW_DESIGN_MODULES = [
         icon: '🛣️',
         subtitle: 'State: STROBES',
         stats: [
-          { label: 'Not Started', value: '--', color: 'red' },
-          { label: 'In Progress', value: '1412', color: 'amber' },
-          { label: 'Phy. Completed', value: '308', color: 'green' },
-          { label: 'Completed', value: '600', color: 'green' },
-          { label: 'Stopped (S)', value: '40', color: 'red' },
-          { label: 'Maintenance', value: '0', color: 'gray' },
-          { label: 'Dropped (D)', value: '99', color: 'purple' },
-          { label: 'No Status', value: '0', color: 'gray' },
-          { label: 'Total', value: '2930', color: 'blue' }
+          { label: 'Total Road Length', value: '18,420 km', color: 'red' },
+          { label: 'Active Projects', value: '1,412', color: 'amber' },
+          { label: 'Total Budget', value: '₹9,240 Cr', color: 'green' },
+          { label: 'Avg Completion', value: '67%', color: 'blue' },
+
         ]
       },
       {
@@ -27,11 +23,11 @@ export const NEW_DESIGN_MODULES = [
         icon: '🏘️',
         subtitle: 'Panchayat: RPMS',
         stats: [
-          { label: 'Not Started', value: '--', color: 'red' },
-          { label: 'In Progress', value: '--', color: 'amber' },
-          { label: 'Phy. Completed', value: '--', color: 'green' },
-          { label: 'Completed', value: '--', color: 'green' },
-          { label: 'Total', value: '--', color: 'blue' }
+          { label: 'Village Roads', value: '42,180 km', color: 'blue' },
+          { label: 'Works Sanctioned', value: '8,640', color: 'amber' },
+          { label: 'RPMS Budget', value: '₹3,420 Cr', color: 'blue' },
+          { label: 'Completion Rate', value: '58%', color: 'green' },
+
         ]
       },
       {
@@ -40,11 +36,10 @@ export const NEW_DESIGN_MODULES = [
         icon: '🏛️',
         subtitle: 'State: STROBES',
         stats: [
-          { label: 'Not Started', value: '--', color: 'red' },
-          { label: 'In Progress', value: '471', color: 'amber' },
-          { label: 'Phy. Completed', value: '120', color: 'green' },
-          { label: 'Completed', value: '400', color: 'green' },
-          { label: 'Total', value: '1800', color: 'blue' }
+          { label: 'Total Projects', value: '1,800', color: 'blue' },
+          { label: 'Under Construction', value: '471', color: 'amber' },
+          { label: 'Total Budget', value: '₹6,840 Cr', color: 'blue' },
+          { label: 'Floor Area Target', value: '84.2 lakh sqft', color: 'green' },
         ]
       }
     ]
@@ -60,12 +55,10 @@ export const NEW_DESIGN_MODULES = [
         icon: '📝',
         subtitle: 'Registration status',
         stats: [
-          { label: 'AA Class', value: '--', color: 'amber' },
-          { label: 'A Class', value: '--', color: 'amber' },
-          { label: 'B Class', value: '--', color: 'green' },
-          { label: 'C Class', value: '--', color: 'blue' },
-          { label: 'Spl. Category Bridge', value: '--', color: 'purple' },
-          { label: 'Spl. Category Roads', value: '--', color: 'red' }
+          { label: 'Total Contractors', value: '14,820', color: 'blue' },
+          { label: 'Renewals Due', value: '2,340', color: 'amber' },
+          { label: 'Revenue (Fees)', value: '₹48.6 Cr', color: 'green' },
+          { label: 'Blacklisted', value: '128', color: 'red' },
         ]
       }
     ]
