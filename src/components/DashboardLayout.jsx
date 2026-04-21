@@ -13,7 +13,7 @@ function PageSkeleton() {
   return (
     <div style={{ padding: '0', display: 'flex', flexDirection: 'column', gap: 24, animation: 'pageEnter 0.3s ease both' }}>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 20 }}>
-        {[...Array(4)].map((_,i) => (
+        {[...Array(4)].map((_, i) => (
           <div key={i} style={{
             height: 110, borderRadius: 'var(--radius-lg)',
             background: 'var(--bg-secondary)',
@@ -24,7 +24,7 @@ function PageSkeleton() {
         ))}
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
-        {[...Array(2)].map((_,i) => (
+        {[...Array(2)].map((_, i) => (
           <div key={i} style={{
             height: 300, borderRadius: 'var(--radius-lg)',
             background: 'var(--bg-secondary)',
@@ -46,7 +46,7 @@ export default function DashboardLayout() {
     return sessionStorage.getItem('darkMode') === 'true';
   });
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  
+
   const [activeSubModule, setActiveSubModule] = useState(null);
   const [pageKey, setPageKey] = useState(0);
 
@@ -66,7 +66,7 @@ export default function DashboardLayout() {
       return next;
     });
   };
-  
+
   const toggleDarkMode = () => {
     setDarkMode(prev => {
       const next = !prev;
@@ -82,10 +82,10 @@ export default function DashboardLayout() {
 
   return (
     <div className={rootClass} style={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
-      <Sidebar 
-        newDesignMode={newDesignMode} 
-        onToggleMode={toggleMode} 
-        collapsed={sidebarCollapsed} 
+      <Sidebar
+        newDesignMode={newDesignMode}
+        onToggleMode={toggleMode}
+        collapsed={sidebarCollapsed}
         onToggleCollapse={toggleSidebar}
         activeSubModule={activeSubModule}
         setActiveSubModule={setActiveSubModule}
@@ -99,9 +99,9 @@ export default function DashboardLayout() {
         transition: 'margin-left var(--sidebar-transition)',
         willChange: 'margin-left',
       }}>
-        <Header 
-          newDesignMode={newDesignMode} 
-          darkMode={darkMode} 
+        <Header
+          newDesignMode={newDesignMode}
+          darkMode={darkMode}
           onToggleDarkMode={toggleDarkMode}
           activeSubModule={activeSubModule}
         />
@@ -114,15 +114,16 @@ export default function DashboardLayout() {
             <Suspense fallback={<PageSkeleton />}>
               <div key={pageKey} className={activeSubModule ? 'page-transition-slide' : 'page-transition-enter'}>
                 {activeSubModule ? (
-                  <SubModuleView 
-                    darkMode={darkMode} 
-                    submoduleId={activeSubModule} 
-                    setActiveSubModule={handleSubModuleChange} 
+                  <SubModuleView
+                    key={activeSubModule}
+                    darkMode={darkMode}
+                    submoduleId={activeSubModule}
+                    setActiveSubModule={setActiveSubModule}
                   />
                 ) : (
-                  <ModulesOverview 
-                    darkMode={darkMode} 
-                    onSubModuleClick={handleSubModuleChange} 
+                  <ModulesOverview
+                    darkMode={darkMode}
+                    onSubModuleClick={handleSubModuleChange}
                   />
                 )}
               </div>

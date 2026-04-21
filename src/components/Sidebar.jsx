@@ -28,7 +28,7 @@ export default function Sidebar({ newDesignMode, onToggleMode, collapsed, onTogg
         {newDesignMode ? (
           /* New Design mode — hierarchical module list */
           <>
-            <div 
+            <div
               className={`sidebar-link ${!activeSubModule ? 'active' : ''}`}
               style={{ cursor: 'pointer', marginBottom: '16px' }}
               onClick={() => setActiveSubModule(null)}
@@ -40,13 +40,17 @@ export default function Sidebar({ newDesignMode, onToggleMode, collapsed, onTogg
             {NEW_DESIGN_MODULES.map(mainMod => (
               <div key={mainMod.id} className="sidebar-main-module">
                 {!collapsed && <div className="sidebar-section-label" style={{ paddingLeft: 0 }}>{mainMod.name}</div>}
-                
+
                 {mainMod.submodules.map(subMod => (
-                  <div 
-                    key={subMod.id} 
+                  <div
+                    key={subMod.id}
                     className={`sidebar-link ${activeSubModule === subMod.id ? 'active' : ''}`}
                     style={{ cursor: 'pointer', paddingLeft: collapsed ? '12px' : '24px' }}
-                    onClick={() => setActiveSubModule(subMod.id)}
+                    onClick={() => {
+                      sessionStorage.setItem('navSource', 'sidebar');
+                      sessionStorage.setItem('navDirection', 'next'); // direction doesn't matter for sidebar
+                      setActiveSubModule(subMod.id);
+                    }}
                     title={collapsed ? subMod.name : undefined}
                   >
                     <span className="sidebar-link-icon">{subMod.icon}</span>

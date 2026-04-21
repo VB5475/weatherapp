@@ -17,19 +17,57 @@
   --nd-badge-ontrack:  rgba(5, 150, 105, 0.12);
   --nd-badge-delayed:  rgba(245, 158, 11, 0.12);
   --nd-badge-critical: rgba(220, 38, 38, 0.12);
+ animation: submodule-reveal 380ms cubic-bezier(0.32, 0.72, 0, 1) both;
+  animation-delay: 400ms;
   --nd-input-bg:       var(--bg-secondary);
 }
 
+
+@keyframes submodule-reveal {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+    transform-origin: center top;
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    transform-origin: center top;
+  }
+}
+
 /* ── Base Layout ── */
+.submodule-hero {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-subtle);
+  overflow: hidden;
+  will-change: transform, border-radius;
+  /* Ensure it starts visible before JS runs */
+  transform-origin: top left;
+}
+
+/* ── Content below hero ── */
+.submodule-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-top: 24px;
+  will-change: transform, opacity;
+}
+
+/* Remove the old animation on new-design-page since we do it manually now */
 .new-design-page {
+  animation: none;
+}
+/* .new-design-page {
   display: flex;
   flex-direction: column;
   gap: 28px;
   background: var(--nd-bg);
   min-height: 100%;
-  padding: 4px; /* inner breathing room inherited from parent */
+  padding: 4px; 
   transition: background 0.35s ease, color 0.35s ease;
-}
+} */
 
 /* ── Intra-Module Navigation ── */
 .submodule-nav-header {
@@ -41,6 +79,7 @@
   border-radius: 14px;
   border: 1px solid var(--nd-card-border);
   box-shadow: var(--nd-card-shadow);
+  margin-bottom: 10px;
 }
 
 .submodule-nav-title {
