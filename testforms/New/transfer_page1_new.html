@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RNB — Employee Transfer | Step 1</title>
+    <link rel="stylesheet" href="transfer_page1_new.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-root">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-icon">R</div>
+                <div class="brand-info">
+                    <h1>RNB</h1>
+                    <p>Roads & Buildings</p>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-section-label">HR MODULES</div>
+                <a href="#" class="sidebar-link active">
+                    <span class="sidebar-icon">➡️</span>
+                    <span class="sidebar-link-label">Employee Transfer</span>
+                </a>
+                <a href="#" class="sidebar-link">
+                    <span class="sidebar-icon">🔝</span>
+                    <span class="sidebar-link-label">Promotion</span>
+                </a>
+                <a href="#" class="sidebar-link">
+                    <span class="sidebar-icon">👤</span>
+                    <span class="sidebar-link-label">New Appointment</span>
+                </a>
+                <div style="margin-top: 24px;" class="sidebar-section-label">REPORTS</div>
+                <a href="#" class="sidebar-link">
+                    <span class="sidebar-icon">📋</span>
+                    <span class="sidebar-link-label">Transfer History</span>
+                </a>
+                <a href="#" class="sidebar-link">
+                    <span class="sidebar-icon">📊</span>
+                    <span class="sidebar-link-label">Analytics</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- MAIN AREA -->
+        <div class="main-area">
+            <!-- HEADER -->
+            <header class="header">
+                <div class="header-titles">
+                    <h2>Employee Transfer</h2>
+                    <span class="subtitle">HR Management Portal — Gujarat</span>
+                </div>
+                <div class="header-right">
+                    <div class="header-datetime">
+                        <span id="header-date" class="header-date"></span>
+                        <span id="header-time" class="header-time"></span>
+                    </div>
+                    <div class="header-status">
+                        <span class="status-dot"></span>
+                        <span>Live</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- CONTENT -->
+            <main class="content">
+                <div class="container">
+                    <!-- STEPS -->
+                    <div class="steps-container">
+                        <div class="step-item active">
+                            <div class="step-circle">1</div>
+                            <span>Process & Verification</span>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-circle">2</div>
+                            <span>Transfer Details</span>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-circle">3</div>
+                            <span>Confirm & Submit</span>
+                        </div>
+                    </div>
+
+                    <div class="page-header">
+                        <h2>Select process & verify employee</h2>
+                        <p>Choose the process type, enter the employee HRPN code, and complete OTP verification to proceed.</p>
+                    </div>
+
+                    <!-- STEP 1: PROCESS TYPE -->
+                    <div class="glass-card">
+                        <div class="card-header">
+                            <h3>STEP 1 — PROCESS TYPE</h3>
+                            <span class="badge badge-blue">REQUIRED</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="process-grid">
+                                <div class="process-card selected" data-value="Transfer">
+                                    <span class="process-icon">🔄</span>
+                                    <div class="process-title">Transfer</div>
+                                    <div class="process-desc">Reassign employee to new location</div>
+                                </div>
+                                <div class="process-card" data-value="Promotion">
+                                    <span class="process-icon">📈</span>
+                                    <div class="process-title">Promotion</div>
+                                    <div class="process-desc">Upgrade grade or designation</div>
+                                </div>
+                                <div class="process-card" data-value="Appointment">
+                                    <span class="process-icon">🆕</span>
+                                    <div class="process-title">New Appointment</div>
+                                    <div class="process-desc">Fresh onboarding entry</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 2: VERIFICATION -->
+                    <div class="glass-card">
+                        <div class="card-header">
+                            <h3>STEP 2 — EMPLOYEE VERIFICATION</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="field-group">
+                                <label>Employee code (HRPN No.) <span style="color:red">*</span></label>
+                                <div class="input-row">
+                                    <input type="text" id="empCode" value="20047859" placeholder="Enter 8-digit HRPN code">
+                                    <button class="btn-secondary" id="req-otp-btn">Request OTP</button>
+                                </div>
+                            </div>
+
+                            <div id="otp-area">
+                                <div class="field-group">
+                                    <label>One-time password — sent to registered mobile <span style="color:red">*</span></label>
+                                    <div class="otp-inputs">
+                                        <input type="text" maxlength="1" class="otp-box">
+                                        <input type="text" maxlength="1" class="otp-box">
+                                        <input type="text" maxlength="1" class="otp-box">
+                                        <input type="text" maxlength="1" class="otp-box">
+                                    </div>
+                                    <div class="otp-hint">Demo: enter 1 · 2 · 3 · 4 to proceed</div>
+                                    <div class="error-text" id="otp-error">Invalid OTP — please check and retry.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span style="font-size: 12px; color: var(--text-muted);">Fields marked <span style="color:red">*</span> are mandatory</span>
+                            <button class="btn-primary" id="verify-btn">Verify & Proceed →</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="transfer_page1_new.js"></script>
+</body>
+</html>

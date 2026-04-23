@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RNB — Employee Transfer | Step 2</title>
+    <link rel="stylesheet" href="transfer_page2_new.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-root">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-icon">R</div>
+                <div class="brand-info">
+                    <h1>RNB</h1>
+                    <p>Roads & Buildings</p>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-section-label">HR MODULES</div>
+                <a href="#" class="sidebar-link active">
+                    <span class="sidebar-icon">➡️</span>
+                    <span class="sidebar-link-label">Employee Transfer</span>
+                </a>
+                <a href="#" class="sidebar-link">
+                    <span class="sidebar-icon">🔝</span>
+                    <span class="sidebar-link-label">Promotion</span>
+                </a>
+                <a href="#" class="sidebar-link">
+                    <span class="sidebar-icon">👤</span>
+                    <span class="sidebar-link-label">New Appointment</span>
+                </a>
+                <div style="margin-top: 24px;" class="sidebar-section-label">REPORTS</div>
+                <a href="#" class="sidebar-link">
+                    <span class="sidebar-icon">📋</span>
+                    <span class="sidebar-link-label">Transfer History</span>
+                </a>
+                <a href="#" class="sidebar-link">
+                    <span class="sidebar-icon">📊</span>
+                    <span class="sidebar-icon">Analytics</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- MAIN AREA -->
+        <div class="main-area">
+            <!-- HEADER -->
+            <header class="header">
+                <div class="header-titles">
+                    <h2>Transfer Details</h2>
+                    <span class="subtitle">HR Management Portal — Gujarat</span>
+                </div>
+                <div class="header-right">
+                    <div class="header-datetime">
+                        <span id="header-date" class="header-date"></span>
+                        <span id="header-time" class="header-time"></span>
+                    </div>
+                    <div class="header-status">
+                        <span class="status-dot"></span>
+                        <span>Live</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- CONTENT -->
+            <main class="content">
+                <div class="container">
+                    <!-- STEPS -->
+                    <div class="steps-container">
+                        <div class="step-item done">
+                            <div class="step-circle">✓</div>
+                            <span>Process & Verification</span>
+                        </div>
+                        <div class="step-item active">
+                            <div class="step-circle">2</div>
+                            <span>Transfer Details</span>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-circle">3</div>
+                            <span>Confirm & Submit</span>
+                        </div>
+                    </div>
+
+                    <div class="page-header">
+                        <h2>Review & Complete</h2>
+                        <p>Fill in the transfer destination information for the verified employee.</p>
+                    </div>
+
+                    <!-- VERIFIED EMPLOYEE -->
+                    <div class="glass-card">
+                        <div class="card-header">
+                            <h3>VERIFIED EMPLOYEE RECORD</h3>
+                            <span class="badge badge-blue" id="proc-badge">Transfer</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="emp-strip">
+                                <div class="emp-avatar">SP</div>
+                                <div class="emp-info">
+                                    <div class="name">Sumeetkumar Bharatbhai Prajapati</div>
+                                    <div class="meta">D.E.E. · Class-2 · Employee Code: <strong id="emp-code-display"></strong></div>
+                                </div>
+                            </div>
+
+                            <div class="grid-3">
+                                <div class="field-group"><label>Wing</label><input readonly value="External Department"></div>
+                                <div class="field-group"><label>Employee type</label><input readonly value="Technical"></div>
+                                <div class="field-group"><label>Engineering services</label><input readonly value="Civil"></div>
+                                <div class="field-group"><label>First joining designation</label><input readonly value="D.E.E."></div>
+                                <div class="field-group"><label>First joining date</label><input readonly value="15/03/2019"></div>
+                                <div class="field-group"><label>Retirement date</label><input readonly value="31/08/2052"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TRANSFER DESTINATION -->
+                    <div class="glass-card">
+                        <div class="card-header">
+                            <h3>TRANSFER DESTINATION</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="section-title">FROM — CURRENT POSTING</div>
+                            <div class="grid-3">
+                                <div class="field-group"><label>Department</label><input readonly value="Gujarat Urban Dev. Co. Ltd."></div>
+                                <div class="field-group"><label>Circle</label><input readonly value="—"></div>
+                                <div class="field-group"><label>Division</label><input readonly value="—"></div>
+                            </div>
+
+                            <div class="section-title" style="color: var(--accent-primary)">TO — NEW POSTING</div>
+                            <div class="grid-3">
+                                <div class="field-group">
+                                    <label>Circle <span style="color:red">*</span></label>
+                                    <select>
+                                        <option value="">— Select circle —</option>
+                                        <option>Ahmedabad</option>
+                                        <option>Gandhinagar</option>
+                                    </select>
+                                </div>
+                                <div class="field-group">
+                                    <label>Wing <span style="color:red">*</span></label>
+                                    <select>
+                                        <option value="">— Select wing —</option>
+                                        <option>Road</option>
+                                        <option>Building</option>
+                                    </select>
+                                </div>
+                                <div class="field-group">
+                                    <label>District <span style="color:red">*</span></label>
+                                    <select>
+                                        <option value="">— Select district —</option>
+                                        <option>Ahmedabad</option>
+                                        <option>Surat</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="section-title">ORDER DETAILS</div>
+                            <div class="grid-3">
+                                <div class="field-group"><label>Order number <span style="color:red">*</span></label><input type="text" placeholder="RNB/TR/2026/001"></div>
+                                <div class="field-group"><label>Order date <span style="color:red">*</span></label><input type="text" value="21/04/2026"></div>
+                                <div class="field-group"><label>Effective date <span style="color:red">*</span></label><input type="text" placeholder="DD/MM/YYYY"></div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn-secondary" onclick="window.history.back()">← Back</button>
+                            <button class="btn-primary" id="submit-btn" style="background: var(--accent-green)">Submit Transfer →</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- SUCCESS OVERLAY -->
+    <div class="overlay" id="success-overlay">
+        <div class="success-card">
+            <div class="success-icon">✓</div>
+            <h2>Transfer Submitted Successfully</h2>
+            <p>The transfer order has been recorded and forwarded for approval. You can now start a new transfer or view history.</p>
+            <button class="btn-primary" onclick="window.location.href='transfer_page1_new.html'">Start New Transfer</button>
+        </div>
+    </div>
+
+    <script src="transfer_page2_new.js"></script>
+</body>
+</html>

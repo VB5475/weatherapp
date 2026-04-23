@@ -8,21 +8,26 @@ export default function Sidebar({ newDesignMode, onToggleMode, collapsed, onTogg
   return (
     <aside className={`sidebar ${collapsed ? 'collapsed' : ''}`}>
       <div className="sidebar-brand">
-        <div className="brand-icon">
+        <div 
+          className="brand-icon" 
+          onClick={onToggleCollapse} 
+          style={{ cursor: 'pointer' }}
+          title={collapsed ? "Expand Sidebar" : "Collapse Sidebar"}
+        >
           <span className="brand-icon-text">R</span>
         </div>
-        {!collapsed && (
-          <div className="brand-info">
-            <h1 className="brand-title">RNB</h1>
-            <p className="brand-subtitle">Roads & Buildings</p>
-          </div>
-        )}
+        
+        <div className="brand-info">
+          <h1 className="brand-title">RNB</h1>
+          <p className="brand-subtitle">Roads & Buildings</p>
+        </div>
+
         <button className="sidebar-collapse-btn" onClick={onToggleCollapse} title={collapsed ? "Expand Sidebar" : "Collapse Sidebar"}>
-          {collapsed ? '→' : '←'}
+          <span className="collapse-arrow">←</span>
         </button>
       </div>
 
-      {!collapsed && <div className="sidebar-section-label">OVERVIEW</div>}
+      <div className="sidebar-section-label">OVERVIEW</div>
 
       <nav className="sidebar-nav">
         {newDesignMode ? (
@@ -39,7 +44,7 @@ export default function Sidebar({ newDesignMode, onToggleMode, collapsed, onTogg
 
             {NEW_DESIGN_MODULES.map(mainMod => (
               <div key={mainMod.id} className="sidebar-main-module">
-                {!collapsed && <div className="sidebar-section-label" style={{ paddingLeft: 0 }}>{mainMod.name}</div>}
+                <div className="sidebar-section-label" style={{ paddingLeft: 0 }}>{mainMod.name}</div>
 
                 {mainMod.submodules.map(subMod => (
                   <div
@@ -48,7 +53,7 @@ export default function Sidebar({ newDesignMode, onToggleMode, collapsed, onTogg
                     style={{ cursor: 'pointer', paddingLeft: collapsed ? '12px' : '24px' }}
                     onClick={() => {
                       sessionStorage.setItem('navSource', 'sidebar');
-                      sessionStorage.setItem('navDirection', 'next'); // direction doesn't matter for sidebar
+                      sessionStorage.setItem('navDirection', 'next'); 
                       setActiveSubModule(subMod.id);
                     }}
                     title={collapsed ? subMod.name : undefined}
@@ -73,24 +78,20 @@ export default function Sidebar({ newDesignMode, onToggleMode, collapsed, onTogg
         {showNewDesign ? (
           <div className="sidebar-footer-card sidebar-footer-card-clickable" onClick={onToggleMode}>
             <div className="sidebar-footer-icon">🏛️</div>
-            {!collapsed && (
-              <>
-                <p className="sidebar-footer-text">Gujarat RNB</p>
-                <p className="sidebar-footer-subtext">
-                  {newDesignMode ? '← Back to Weather' : 'View New Dashboard →'}
-                </p>
-              </>
-            )}
+            <div className="sidebar-footer-info">
+              <p className="sidebar-footer-text">Gujarat RNB</p>
+              <p className="sidebar-footer-subtext">
+                {newDesignMode ? '← Back to Weather' : 'View New Dashboard →'}
+              </p>
+            </div>
           </div>
         ) : (
           <div className="sidebar-footer-card">
             <div className="sidebar-footer-icon">🏛️</div>
-            {!collapsed && (
-              <>
-                <p className="sidebar-footer-text">Gujarat RNB</p>
-                <p className="sidebar-footer-subtext">Weather Intelligence</p>
-              </>
-            )}
+            <div className="sidebar-footer-info">
+              <p className="sidebar-footer-text">Gujarat RNB</p>
+              <p className="sidebar-footer-subtext">Weather Intelligence</p>
+            </div>
           </div>
         )}
       </div>

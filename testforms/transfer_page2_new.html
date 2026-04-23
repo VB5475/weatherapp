@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RNB — Employee Transfer | Step 2</title>
+    <link rel="stylesheet" href="transfer_page2_new.css">
+</head>
+<body>
+    <div class="app-root">
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-icon">R</div>
+                <div class="brand-info">
+                    <h1>RNB</h1>
+                    <p>Roads & Buildings</p>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-section-label">HR MODULES</div>
+                <a href="#" class="sidebar-link active"><span class="sidebar-icon">➡️</span><span class="sidebar-link-label">Employee Transfer</span></a>
+                <a href="#" class="sidebar-link"><span class="sidebar-icon">🔝</span><span class="sidebar-link-label">Promotion</span></a>
+                <a href="#" class="sidebar-link"><span class="sidebar-icon">👤</span><span class="sidebar-link-label">New Appointment</span></a>
+                <div style="margin-top: 24px;" class="sidebar-section-label">REPORTS</div>
+                <a href="#" class="sidebar-link"><span class="sidebar-icon">📋</span><span class="sidebar-link-label">Transfer History</span></a>
+                <a href="#" class="sidebar-link"><span class="sidebar-icon">📊</span><span class="sidebar-link-label">Analytics</span></a>
+            </nav>
+        </aside>
+
+        <div class="main-area">
+            <header class="header">
+                <div class="header-titles">
+                    <h2>Transfer Details</h2>
+                    <span class="subtitle">Step 2: Destination & Orders</span>
+                </div>
+                <div class="header-right">
+                    <div class="header-datetime">
+                        <span id="header-date" class="header-date"></span>
+                        <span id="header-time" class="header-time"></span>
+                    </div>
+                </div>
+            </header>
+
+            <main class="content page-enter">
+                <div class="container">
+                    <div class="steps-container stagger-item" style="--idx:1">
+                        <div class="step-item done"><span>✓</span> Verification</div>
+                        <div class="step-item active"><span>2</span> Transfer Details</div>
+                        <div class="step-item"><span>3</span> Confirmation</div>
+                    </div>
+
+                    <div class="glass-card stagger-item" style="--idx:2">
+                        <div class="card-header">
+                            <h3>VERIFIED EMPLOYEE</h3>
+                            <span class="badge badge-blue" id="proc-badge">TRANSFER</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="emp-strip">
+                                <div class="emp-avatar">SP</div>
+                                <div class="emp-info">
+                                    <div class="name">Sumeetkumar Prajapati</div>
+                                    <div class="meta">D.E.E. · Class-2 · Code: <strong id="emp-code-display"></strong></div>
+                                </div>
+                            </div>
+                            <div class="grid-3">
+                                <div class="field-group"><label>Wing</label><input readonly value="External Department"></div>
+                                <div class="field-group"><label>Type</label><input readonly value="Technical"></div>
+                                <div class="field-group"><label>Joining Date</label><input readonly value="15/03/2019"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card stagger-item" style="--idx:3">
+                        <div class="card-header"><h3>DESTINATION DETAILS</h3></div>
+                        <div class="card-body">
+                            <div class="section-label">NEW POSTING</div>
+                            <div class="grid-3">
+                                <div class="field-group"><label>Circle *</label><select><option>Ahmedabad</option><option>Gandhinagar</option></select></div>
+                                <div class="field-group"><label>Wing *</label><select><option>Road</option><option>Building</option></select></div>
+                                <div class="field-group"><label>District *</label><select><option>Ahmedabad</option><option>Surat</option></select></div>
+                            </div>
+                            <div class="section-label">ORDER INFORMATION</div>
+                            <div class="grid-3">
+                                <div class="field-group"><label>Order # *</label><input type="text" placeholder="TR-2026-001"></div>
+                                <div class="field-group"><label>Order Date *</label><input type="text" value="21/04/2026"></div>
+                                <div class="field-group"><label>Effective Date *</label><input type="text" value="01/05/2026"></div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn-secondary" onclick="window.history.back()">← Back</button>
+                            <button class="btn-primary" id="submit-btn" style="background: var(--accent-green)">Complete Submission →</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="success-overlay">
+        <div class="success-modal">
+            <div class="success-check">✓</div>
+            <h2>Successfully Submitted</h2>
+            <p>The transfer order has been recorded. The employee record will be updated upon final administrative approval.</p>
+            <button class="btn-primary" onclick="window.location.href='transfer_page1_new.html'">Start New Entry</button>
+        </div>
+    </div>
+
+    <script src="transfer_page2_new.js"></script>
+</body>
+</html>
