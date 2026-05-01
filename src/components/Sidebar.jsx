@@ -25,9 +25,17 @@ export default function Sidebar() {
 
       <div className="sidebar-footer">
         <div className="sidebar-footer-card">
-          <div className="sidebar-footer-icon">🏛️</div>
+          {/* <div className="sidebar-footer-icon">🏛️</div>
           <p className="sidebar-footer-text">Gujarat RNB</p>
           <p className="sidebar-footer-subtext">Weather Intelligence</p>
+          <div className="sidebar-footer-divider" /> */}
+          <div className="sidebar-footer-source">
+            <span className="sidebar-footer-source-label">Data Source</span>
+            <div className="sidebar-footer-imd">
+              <span className="sidebar-footer-imd-badge">IMD</span>
+              <span className="sidebar-footer-imd-name">India Meteorological Department</span>
+            </div>
+          </div>
         </div>
       </div>
     </aside>
