@@ -155,3 +155,42 @@ body {
   .grid-4 { grid-template-columns: 1fr; }
   .grid-2 { grid-template-columns: 1fr; }
 }
+
+/* 3D Hover Effect for Bar Charts */
+.recharts-bar-rectangle path {
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+  transform-box: fill-box;
+  transform-origin: center bottom;
+}
+
+.recharts-bar-rectangle path:hover {
+  filter: drop-shadow(4px 4px 6px rgba(0, 0, 0, 0.4)) brightness(1.15) !important;
+  transform: translateY(-4px) scaleX(1.02) scaleY(1.02) !important;
+  cursor: pointer;
+}
+
+/* 3D Hover Effect for Pie Charts */
+.recharts-pie-sector path,
+.recharts-sector {
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+  transform-box: fill-box;
+  transform-origin: center center;
+}
+
+.recharts-pie-sector path:hover,
+.recharts-sector:hover {
+  filter: drop-shadow(4px 4px 6px rgba(0, 0, 0, 0.4)) brightness(1.15) !important;
+  transform: scale(1.06) !important;
+  cursor: pointer;
+}
+
+/* 3D Hover Effect for Line Chart Dots */
+.recharts-dot, .recharts-active-dot circle {
+  transition: all 0.3s ease !important;
+  transform-box: fill-box;
+  transform-origin: center center;
+}
+.recharts-active-dot circle {
+  filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.5)) !important;
+  transform: scale(1.3) !important;
+}

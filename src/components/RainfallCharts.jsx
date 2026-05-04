@@ -117,14 +117,16 @@ export function CategoryDistributionChart({ districtData }) {
     value,
     districts: categoryDistricts[name]
   }));
-
+  console.log("see the pieData:", pieData)
+  console.log("see the categoryCounts:", categoryCounts)
+  console.log("see the categoryDistricts:", categoryDistricts)
   return (
     <div className="chart-container glass-card fade-in-up" style={{ animationDelay: '500ms' }}>
       <div className="chart-header">
         <h3 className="chart-title">📊 District Category Distribution</h3>
         <span className="chart-subtitle">Monthly rainfall categories across Gujarat</span>
       </div>
-      <ResponsiveContainer width="100%" height={280}>
+      <ResponsiveContainer width="100%" height={280} >
         <PieChart>
           <Pie
             data={pieData}
