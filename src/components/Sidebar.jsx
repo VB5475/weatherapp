@@ -81,7 +81,7 @@ export default function Sidebar({ newDesignMode, onToggleMode, collapsed, onTogg
             <div className="sidebar-footer-info">
               <p className="sidebar-footer-text">Gujarat RNB</p>
               <p className="sidebar-footer-subtext">
-                {newDesignMode ? '← Back to Weather' : 'View New Dashboard →'}
+                {newDesignMode ? 'View Weather Dashboard →' : '← Back to New Dashboard'}
               </p>
             </div>
           </div>

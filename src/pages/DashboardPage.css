@@ -91,6 +91,18 @@
   color: var(--text-muted);
 }
 
+.empty-state-icon {
+  font-size: 48px;
+  line-height: 1;
+}
+
+.empty-state-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
 /* Map Section Layout */
 .map-split {
   display: grid;

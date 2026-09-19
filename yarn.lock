@@ -569,6 +569,11 @@ browserslist@^4.24.0:
     node-releases "^2.0.36"
     update-browserslist-db "^1.2.3"
 
+cache-swipper@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/cache-swipper/-/cache-swipper-3.6.0.tgz#893a5dc2aa07ffa39573b77942fc300e12576ec4"
+  integrity sha512-0cH39IuMFUoIGzlmhc7Ynk/BkFILpyGJhbhlT4oGo8lp5zatX07q20XT3d2HH3BIA3GgLey1l0sqJcFKA91MhQ==
+
 callsites@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/callsites/-/callsites-3.1.0.tgz#b3630abd8943432f54b3f0519238e33cd7df2f73"

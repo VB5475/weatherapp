@@ -40,7 +40,10 @@ function PageSkeleton() {
 
 export default function DashboardLayout() {
   const [newDesignMode, setNewDesignMode] = useState(() => {
-    return sessionStorage.getItem('newDesignMode') === 'true';
+    if (!showNewDesign) return false;
+    const stored = sessionStorage.getItem('newDesignMode');
+    if (stored === null) return true;
+    return stored === 'true';
   });
   const [darkMode, setDarkMode] = useState(() => {
     return sessionStorage.getItem('darkMode') === 'true';

@@ -6,13 +6,22 @@ import './DashboardPage.css';
 export default function DistrictsPage() {
   const [districtData, setDistrictData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [noData, setNoData] = useState(false);
 
   useEffect(() => {
     async function loadData() {
       setLoading(true);
-      const district = await fetchDistrictRainfall();
-      setDistrictData(district);
-      setLoading(false);
+      setNoData(false);
+      try {
+        const district = await fetchDistrictRainfall();
+        setDistrictData(district);
+      } catch (error) {
+        console.warn('Failed to load district data:', error.message);
+        setDistrictData([]);
+        setNoData(true);
+      } finally {
+        setLoading(false);
+      }
     }
     loadData();
   }, []);
@@ -22,6 +31,16 @@ export default function DistrictsPage() {
       <div className="loading-container">
         <div className="loading-spinner" />
         <p className="loading-text">Loading district data...</p>
+      </div>
+    );
+  }
+
+  if (noData) {
+    return (
+      <div className="loading-container">
+        <span className="empty-state-icon" aria-hidden>📭</span>
+        <p className="empty-state-title">No data found</p>
+        <p className="loading-text">District weather data is unavailable. Please try again later.</p>
       </div>
     );
   }
