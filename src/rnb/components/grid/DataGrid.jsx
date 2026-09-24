@@ -11,7 +11,15 @@ function cellText(value) {
 
 /** Summary row from chart grids — always last, never reordered by sort. */
 function isPinnedTotalRow(row) {
-  return String(row?.label ?? '').trim().toLowerCase() === 'total';
+  const candidates = [row?.label, row?.Label, row?.LABEL];
+  return candidates.some(
+    (v) => String(v ?? '').trim().toLowerCase() === 'total',
+  );
+}
+
+function formatCellValue(value) {
+  if (value == null || value === '') return '';
+  return value;
 }
 
 /**
@@ -32,6 +40,12 @@ export default function DataGrid({
   plain = false,
   /** Chart card inline table: no search toolbar, compact chrome */
   embedded = false,
+  /** Match chart / expand-modal grid (header, stripes, total row) */
+  appearance = embedded ? 'dashboard' : 'default',
+  /** Modal-style grid: no toolbar, fills container */
+  chrome = embedded ? 'embedded' : 'default',
+  onRowClick = null,
+  rowClickHint = '',
 }) {
   const [sortField, setSortField] = useState(columns[0]?.key ?? '');
   const [sortDir, setSortDir] = useState('asc');
@@ -164,16 +178,23 @@ export default function DataGrid({
     ? Math.min(page * pageSize, totalRows)
     : Math.min(page * pageSize, sorted.length);
 
+  const isDashboard = appearance === 'dashboard';
+  const isModalChrome = chrome === 'modal' || embedded;
+
   const wrapperClass = [
     'data-grid-wrapper',
     plain ? 'data-grid-wrapper--plain' : 'glass-card fade-in-up',
     embedded ? 'data-grid-wrapper--embedded' : '',
+    isDashboard ? 'data-grid-wrapper--dashboard' : '',
+    isModalChrome ? 'data-grid-wrapper--modal-chrome' : '',
   ]
     .filter(Boolean)
     .join(' ');
 
-  const showToolbar = !embedded && (title || subtitle || !isServer);
-  const showFooter = !embedded || totalPages > 1;
+  const showToolbar =
+    !isModalChrome &&
+    (title || subtitle || rowClickHint || !isServer);
+  const showFooter = !isModalChrome || totalPages > 1;
 
   return (
     <div className={wrapperClass}>
@@ -183,6 +204,11 @@ export default function DataGrid({
             {title ? <h3 className="data-grid-title">{title}</h3> : null}
             {subtitle ? (
               <span className="data-grid-subtitle">{subtitle}</span>
+            ) : null}
+            {rowClickHint ? (
+              <span className="data-grid-subtitle data-grid-row-hint">
+                {rowClickHint}
+              </span>
             ) : null}
           </div>
           {!isServer && (
@@ -287,12 +313,33 @@ export default function DataGrid({
               </tr>
             ) : (
               pageRows.map((row, idx) => {
-                const isTotalRow =
-                  String(row.label ?? '').toLowerCase() === 'total';
+                const isTotalRow = isPinnedTotalRow(row);
                 return (
                 <tr
                   key={row.id ?? row.ID ?? row._rowKey ?? idx}
-                  className={isTotalRow ? 'data-grid-total-row' : undefined}
+                  className={[
+                    isTotalRow ? 'data-grid-total-row' : '',
+                    onRowClick && !isTotalRow ? 'data-grid-row--clickable' : '',
+                  ]
+                    .filter(Boolean)
+                    .join(' ') || undefined}
+                  onClick={
+                    onRowClick && !isTotalRow
+                      ? () => onRowClick(row)
+                      : undefined
+                  }
+                  onKeyDown={
+                    onRowClick && !isTotalRow
+                      ? (e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            onRowClick(row);
+                          }
+                        }
+                      : undefined
+                  }
+                  tabIndex={onRowClick && !isTotalRow ? 0 : undefined}
+                  role={onRowClick && !isTotalRow ? 'button' : undefined}
                 >
                   {columns.map((col) => (
                     <td
@@ -300,7 +347,9 @@ export default function DataGrid({
                       className={col.align === 'right' ? 'align-right' : ''}
                       title={cellText(row[col.key])}
                     >
-                      {col.render ? col.render(row) : row[col.key]}
+                      {col.render
+                        ? col.render(row)
+                        : formatCellValue(row[col.key])}
                     </td>
                   ))}
                 </tr>

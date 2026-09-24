@@ -1,7 +1,7 @@
-import { ALL_MODULES_LABEL, ALL_MODULES_PATH } from '../constants/routes';
+import { ALL_MODULES_LABEL, isOverviewRoutePath } from '../constants/routes';
 
 export function getPageHeading(userRights, pathname) {
-  if (pathname === ALL_MODULES_PATH) {
+  if (isOverviewRoutePath(pathname)) {
     return {
       parentTitle: ALL_MODULES_LABEL,
       childTitle: null,

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { X } from 'lucide-react';
+import { LayoutGrid, X } from 'lucide-react';
 import RnbAppliedFilters from './RnbAppliedFilters';
 import RnbChartBody from './RnbChartBody';
 import RnbWidgetHeader from './RnbWidgetHeader';
@@ -11,6 +11,7 @@ export default function RnbChartExpandModal({
   appliedFilters = [],
   onClose,
   onChartClick,
+  onDrilldownClick,
 }) {
   const [showGrid, setShowGrid] = useState(false);
 
@@ -41,7 +42,13 @@ export default function RnbChartExpandModal({
         aria-label="Close expanded chart"
       />
       <div
-        className={`rnb-chart-expand-dialog${chart.type === 'pie' ? ' rnb-chart-expand-dialog--pie' : ''}`}
+        className={[
+          'rnb-chart-expand-dialog',
+          chart.type === 'pie' ? 'rnb-chart-expand-dialog--pie' : '',
+          showGrid ? 'rnb-chart-expand-dialog--grid' : 'rnb-chart-expand-dialog--chart',
+        ]
+          .filter(Boolean)
+          .join(' ')}
         role="dialog"
         aria-modal="true"
         aria-labelledby="rnb-chart-expand-title"
@@ -70,6 +77,17 @@ export default function RnbChartExpandModal({
                   <span className="rnb-chart-grid-switch-thumb" />
                 </button>
               </div>
+              {onDrilldownClick ? (
+                <button
+                  type="button"
+                  className="rnb-chart-action rnb-chart-action--icon"
+                  onClick={onDrilldownClick}
+                  aria-label="Drill down"
+                  title="Drill down"
+                >
+                  <LayoutGrid size={18} aria-hidden />
+                </button>
+              ) : null}
               <button
                 type="button"
                 className="rnb-chart-action rnb-chart-action--icon rnb-chart-expand-close"
@@ -83,7 +101,7 @@ export default function RnbChartExpandModal({
         />
         {appliedFilters.length > 0 ? (
           <div className="rnb-chart-expand-filters">
-            <RnbAppliedFilters filters={appliedFilters} />
+            <RnbAppliedFilters filters={appliedFilters} variant="compact" />
           </div>
         ) : null}
         <RnbChartBody

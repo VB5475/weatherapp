@@ -3,7 +3,7 @@ import { Bell, Coins, Home, Menu } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useUser } from '../context/UserContext';
-import { ALL_MODULES_PATH } from '../constants/routes';
+import { isOverviewRoutePath } from '../constants/routes';
 import { getMotherLinkTarget, getPageHeading } from '../utils/pageHeading';
 import { openMotherLogin } from '../services/motherLogin';
 import BroadcastBanner from './BroadcastBanner';
@@ -52,7 +52,8 @@ export default function RnbHeader({
   const homePath = useMemo(() => {
     const routes = user?.AllowedRoutes ?? [];
     if (routes.includes('/home')) return '/home';
-    if (routes.includes(ALL_MODULES_PATH)) return ALL_MODULES_PATH;
+    const overview = routes.find(isOverviewRoutePath);
+    if (overview) return overview;
     return routes.find((p) => p.startsWith('/')) ?? '/home';
   }, [user?.AllowedRoutes]);
 

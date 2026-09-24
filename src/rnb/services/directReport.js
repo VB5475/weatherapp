@@ -23,12 +23,30 @@ export async function fetchDirectReportList(menuCode) {
     const fileName = report.ReportPath
       ? report.ReportPath.split('/').pop().replace(/%20/g, ' ')
       : 'Unknown';
+    const ext = fileName.toLowerCase().split('.').pop();
+    const fileType = (() => {
+      switch (ext) {
+        case 'pdf':
+          return 'PDF Document';
+        case 'xlsx':
+        case 'xls':
+          return 'Excel Document';
+        case 'docx':
+        case 'doc':
+          return 'Word Document';
+        case 'rpt':
+          return 'Crystal Report';
+        default:
+          return 'Document';
+      }
+    })();
     return {
       id: report.Ref_MenuID ?? index,
       objectId: report.ObjectID ?? report.Ref_MenuID ?? index,
       title: report.Ref_MenuTitle?.replace(/"/g, '') || 'Untitled Report',
       description: report.Description || 'No description available',
       fileName,
+      fileType,
       reportPath: report.ReportPath || '',
     };
   });

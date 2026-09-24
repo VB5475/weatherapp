@@ -50,6 +50,37 @@
   font-weight: 500;
 }
 
+.rnb-status-section-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.rnb-status-drilldown-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-accent);
+  background: white;
+  color: rgb(91, 76, 226);
+  cursor: pointer;
+  transition:
+    background 0.22s ease,
+    box-shadow 0.22s ease,
+    transform 0.22s ease;
+}
+
+.rnb-status-drilldown-btn:hover {
+  background: rgba(91, 76, 226, 0.08);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(91, 76, 226, 0.15);
+}
+
 .rnb-status-filter-btn {
   display: inline-flex;
   align-items: center;

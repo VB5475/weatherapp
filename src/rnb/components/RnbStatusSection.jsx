@@ -1,3 +1,4 @@
+import { LayoutGrid } from 'lucide-react';
 import RnbStatCard from './RnbStatCard';
 import RnbAppliedFilters from './RnbAppliedFilters';
 import './RnbStatusSection.css';
@@ -15,6 +16,8 @@ export default function RnbStatusSection({
   onClearFilters,
   appliedFilters = [],
   onCardClick,
+  showDrilldown = false,
+  onDrilldownClick,
   animationOffset = 0,
 }) {
   const hasAppliedFilters = appliedFilters.length > 0;
@@ -30,23 +33,36 @@ export default function RnbStatusSection({
             {statusRows.length} statuses
           </span>
         </div>
-        {showFilter && (
-          <button
-            type="button"
-            className={`rnb-status-filter-btn${hasAppliedFilters ? ' has-active-filters' : ''}`}
-            onClick={onFilter}
-          >
-            <span className="rnb-status-filter-icon" aria-hidden>
-              ◇
-            </span>
-            Filter
-            {hasAppliedFilters && (
-              <span className="rnb-status-filter-count">
-                {appliedFilters.length > 9 ? '9+' : appliedFilters.length}
+        <div className="rnb-status-section-actions">
+          {showDrilldown && onDrilldownClick ? (
+            <button
+              type="button"
+              className="rnb-status-drilldown-btn"
+              onClick={onDrilldownClick}
+              title="Drill down"
+              aria-label="Open drill down grid"
+            >
+              <LayoutGrid size={18} aria-hidden />
+            </button>
+          ) : null}
+          {showFilter ? (
+            <button
+              type="button"
+              className={`rnb-status-filter-btn${hasAppliedFilters ? ' has-active-filters' : ''}`}
+              onClick={onFilter}
+            >
+              <span className="rnb-status-filter-icon" aria-hidden>
+                ◇
               </span>
-            )}
-          </button>
-        )}
+              Filter
+              {hasAppliedFilters && (
+                <span className="rnb-status-filter-count">
+                  {appliedFilters.length > 9 ? '9+' : appliedFilters.length}
+                </span>
+              )}
+            </button>
+          ) : null}
+        </div>
       </header>
 
       <RnbAppliedFilters filters={appliedFilters} onClearAll={onClearFilters} />

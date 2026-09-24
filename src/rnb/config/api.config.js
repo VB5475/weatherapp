@@ -13,6 +13,7 @@ export const FETCH_OBJECTWISE_DATASET_FILTERED = 'FetchObjectwiseDataSetFiltered
 export const FILTER_VALUE_SELECTED = 'FilterValueSelected';
 export const CHART_CLICK = 'ChartClick';
 export const DATA_DRILL_DOWN = 'DataDrilldown';
+export const FETCH_WORK_DATA_FOR_MAP = 'FetchWorkData4Map';
 export const FETCH_API_DATA = 'FetchAPIData';
 export const LIST = 'LIST';
 export const SEARCH_WITH_PAGING = 'SRCHWITHPAGING';
@@ -28,6 +29,10 @@ export const REGISTER_GRIEVANCE = 'RegisterGrievance';
 export const USER_VISIT_COUNT = 'UserVisitCount';
 export const FORGOT_PASSWORD = 'ForgotPassword';
 export const FORGOT_USERID = 'ForgotUserID';
+export const CHANGE_PASSWORD = 'ChangePassword';
+export const UPDATE_USER = 'UpdateUser';
+export const FETCH_USER_DETAILS = 'FetchUserDetails';
+export const FETCH_PASSWORD_POLICY = 'FetchPasswordPolicy';
 
 export let DDL_DRPT_URL;
 export let WEB_DOMAIN;
@@ -45,6 +50,8 @@ export let DATAPOOL_RESOURCE;
 export let DASHBOARD_URL;
 export let WS_DASH_URL;
 export let WSMIS_URL;
+export let MAP_URL;
+export let MAP_CREDENTIALS = null;
 export let BASIC_TOKEN_HEADER = {};
 export let SIDEBAR_COLOR_CONFIG = null;
 
@@ -83,6 +90,8 @@ export function loadConfig(config) {
   WS_DASH_URL = `${CK_Dsh_DBData3}/webservice/wsDash.asmx`;
   WSMIS_URL = `${CK_Dsh_DBData}/webservice/wsmis.asmx`;
   DDL_DRPT_URL = `${CK_Dsh_DBData3}/webservice/wsMIS_DRPT.asmx`;
+  MAP_URL = config.MAP_URL ?? '';
+  MAP_CREDENTIALS = config.MAP_CREDENTIALS ?? null;
 
   SIDEBAR_COLOR_CONFIG = config.configSideBarColors ?? null;
   applySidebarBackgroundFromConfig(config);

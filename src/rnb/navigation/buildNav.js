@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import { createElement } from 'react';
 import { WEB_DOMAIN } from '../config/api.config';
-import { ALL_MODULES_LABEL, ALL_MODULES_PATH } from '../constants/routes';
+import { ALL_MODULES_LABEL, isOverviewRoutePath } from '../constants/routes';
 
 const ICON_SIZE = 22;
 
@@ -35,7 +35,7 @@ export function isDashboardOverviewNavItem(item) {
   if (item.code?.trim() === 'DSH_OVRVW') return true;
   const name = (item.name || '').trim().toLowerCase();
   if (name === ALL_MODULES_LABEL.toLowerCase()) return true;
-  return item.to?.trim() === ALL_MODULES_PATH;
+  return isOverviewRoutePath(item.to);
 }
 
 function applyOverviewNavPresentation(item) {

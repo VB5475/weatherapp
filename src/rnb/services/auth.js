@@ -56,15 +56,21 @@ export async function fetchMenuRights(userID, moduleCode = 'DSH', baseUser = {})
   const allowedRoutes = [];
   const registeringRoutes = [];
 
+  const registerMenuPath = (entry) => {
+    const route = parseRouteJson(entry.RouteJson);
+    if (route) registeringRoutes.push(route);
+    const path = isURL(entry.formobjname)
+      ? entry.formobjname
+      : entry.formobjname?.replace(/[\r\n]/g, '') || '/*';
+    allowedRoutes.push(path);
+  };
+
   userRights.forEach((right) => {
-    right.children?.forEach((child) => {
-      const route = parseRouteJson(child.RouteJson);
-      if (route) registeringRoutes.push(route);
-      const path = isURL(child.formobjname)
-        ? child.formobjname
-        : child.formobjname?.replace(/[\r\n]/g, '') || '/*';
-      allowedRoutes.push(path);
-    });
+    if (!right.children?.length) {
+      registerMenuPath(right);
+      return;
+    }
+    right.children.forEach((child) => registerMenuPath(child));
   });
 
   const merged = {

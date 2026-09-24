@@ -18,8 +18,10 @@ import { getUserToken } from '../utils/session';
 import RnbStatusSection from '../components/RnbStatusSection';
 import RnbChartPanel from '../components/RnbChartPanel';
 import FilterDrawer from '../components/FilterDrawer';
-import DataModal from '../components/DataModal';
+import RnbChartClickPanel from '../components/RnbChartClickPanel';
+import RnbDrilldownModal from '../components/RnbDrilldownModal';
 import RnbChartExpandModal from '../components/RnbChartExpandModal';
+import { hasDrilldownGridData } from '../utils/drilldownGrid';
 import RnbLoader from '../components/RnbLoader';
 import './RnbHomePage.css';
 
@@ -35,7 +37,9 @@ export default function RnbHomePage() {
   const [appliedFiltersByWidget, setAppliedFiltersByWidget] = useState({});
   /** Per-widget drawer UI state (legacy chartWiseFilterStates + filter Values after cascade). */
   const [filterDraftByWidget, setFilterDraftByWidget] = useState({});
-  const [modal, setModal] = useState(null);
+  const [chartClickView, setChartClickView] = useState(null);
+  const [drilldown, setDrilldown] = useState(null);
+  const [drilldownLoading, setDrilldownLoading] = useState(false);
   const [expandedChart, setExpandedChart] = useState(null);
 
   const { data, isLoading, isError, error } = useQuery({
@@ -167,9 +171,17 @@ export default function RnbHomePage() {
         clickedValue2,
         loginId: getUserToken(),
       });
-      setModal({
+      if (!rows?.length) {
+        toast.error('No data available');
+        return;
+      }
+      const subtitle = clickedValue2
+        ? `${clickedValue1} — ${clickedValue2}`
+        : clickedValue1;
+      setExpandedChart(null);
+      setChartClickView({
         title: chart.title,
-        subtitle: clickedValue1,
+        subtitle,
         rows,
       });
     },
@@ -179,21 +191,30 @@ export default function RnbHomePage() {
   const handleDrilldown = useCallback(
     async (widget) => {
       const filterMap = getFilterStringsForMenu(menuCode) || {};
-      const result = await fetchDrilldownTables({
-        level: 1,
-        objectId: widget.id,
-        filterString: filterMap[widget.id] ?? widget.filterString,
-        loginId: getUserToken(),
-      });
-      if (!result?.mainTable?.length) {
-        toast.error('No drilldown data');
-        return;
+      const level0FilterString =
+        filterMap[widget.id] ?? widget.filterString ?? '';
+      setDrilldownLoading(true);
+      try {
+        const result = await fetchDrilldownTables({
+          level: 1,
+          objectId: widget.id,
+          filterString: level0FilterString,
+          loginId: getUserToken(),
+        });
+        if (!hasDrilldownGridData(result?.mainTable, result?.refTable)) {
+          toast.error('No drilldown data');
+          return;
+        }
+        setDrilldown({
+          title: widget.title,
+          objectId: widget.id,
+          mainTable: result.mainTable,
+          refTable: result.refTable,
+          level0FilterString,
+        });
+      } finally {
+        setDrilldownLoading(false);
       }
-      setModal({
-        title: widget.title,
-        subtitle: 'Drill down level 1',
-        rows: result.mainTable,
-      });
     },
     [menuCode],
   );
@@ -228,6 +249,20 @@ export default function RnbHomePage() {
     );
   }
 
+  if (chartClickView?.rows?.length) {
+    return (
+      <div className="rnb-home-page rnb-home-page--chart-click">
+        <RnbChartClickPanel
+          menuCode={menuCode}
+          title={chartClickView.title}
+          subtitle={chartClickView.subtitle}
+          rows={chartClickView.rows}
+          onBack={() => setChartClickView(null)}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="rnb-home-page">
       {cards.length > 0 &&
@@ -241,6 +276,8 @@ export default function RnbHomePage() {
             appliedFilters={appliedFiltersByWidget[card.id] ?? []}
             onClearFilters={() => clearWidgetFilters(card)}
             animationOffset={cardIdx * 80}
+            showDrilldown={card.isDrillDown}
+            onDrilldownClick={() => handleDrilldown(card)}
             onCardClick={(row) =>
               handleChartClick(card, String(row.Label ?? '').trim(), '')
             }
@@ -285,11 +322,18 @@ export default function RnbHomePage() {
         onApplied={handleFilterApplied}
       />
 
-      <DataModal
-        title={modal?.title}
-        subtitle={modal?.subtitle}
-        rows={modal?.rows}
-        onClose={() => setModal(null)}
+      {drilldownLoading ? (
+        <RnbLoader variant="fullscreen" message="Loading drilldown…" />
+      ) : null}
+
+      <RnbDrilldownModal
+        open={Boolean(drilldown)}
+        title={drilldown?.title}
+        objectId={drilldown?.objectId}
+        initialMainTable={drilldown?.mainTable}
+        initialRefTable={drilldown?.refTable}
+        level0FilterString={drilldown?.level0FilterString}
+        onClose={() => setDrilldown(null)}
       />
 
       {expandedChart ? (
@@ -299,10 +343,15 @@ export default function RnbHomePage() {
           }
           appliedFilters={appliedFiltersByWidget[expandedChart.id] ?? []}
           onClose={() => setExpandedChart(null)}
-          onChartClick={(v1, v2) => {
-            handleChartClick(expandedChart, v1, v2);
-            setExpandedChart(null);
-          }}
+          onDrilldownClick={
+            expandedChart.isDrillDown
+              ? () => {
+                  handleDrilldown(expandedChart);
+                  setExpandedChart(null);
+                }
+              : undefined
+          }
+          onChartClick={(v1, v2) => handleChartClick(expandedChart, v1, v2)}
         />
       ) : null}
     </div>

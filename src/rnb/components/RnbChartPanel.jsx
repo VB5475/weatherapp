@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Maximize2 } from 'lucide-react';
+import { LayoutGrid, Maximize2 } from 'lucide-react';
 import RnbAppliedFilters from './RnbAppliedFilters';
 import RnbChartBody from './RnbChartBody';
 import RnbWidgetHeader from './RnbWidgetHeader';
@@ -58,11 +58,17 @@ function ChartPanelActions({
           <Maximize2 size={16} aria-hidden />
         </button>
       ) : null}
-      {chart.isDrillDown && (
-        <button type="button" className="rnb-chart-action" onClick={onDrilldownClick}>
-          Drill down
+      {chart.isDrillDown && onDrilldownClick ? (
+        <button
+          type="button"
+          className="rnb-chart-action rnb-chart-action--icon"
+          onClick={onDrilldownClick}
+          aria-label="Drill down"
+          title="Drill down"
+        >
+          <LayoutGrid size={16} aria-hidden />
         </button>
-      )}
+      ) : null}
     </>
   );
 }
@@ -112,7 +118,11 @@ export default function RnbChartPanel({
         }
       />
       <div className="rnb-chart-panel-content">
-        <RnbAppliedFilters filters={appliedFilters} onClearAll={onClearFilters} />
+        <RnbAppliedFilters
+        filters={appliedFilters}
+        onClearAll={onClearFilters}
+        variant="compact"
+      />
         <RnbChartBody
           chart={chart}
           showGrid={showGrid}

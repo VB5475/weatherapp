@@ -9,14 +9,18 @@ import RequireAuth from './routes/RequireAuth';
 import RnbDashboardLayout from './layout/RnbDashboardLayout';
 import LoginPage from './pages/LoginPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
-import AccountPlaceholderPage from './pages/AccountPlaceholderPage';
+import ChangePasswordPage from './pages/ChangePasswordPage';
+import UpdateUserDetailsPage from './pages/UpdateUserDetailsPage';
 import RnbLoader from './components/RnbLoader';
 import RnbHomePage from './pages/RnbHomePage';
 import RnbModulesHomePage from './pages/RnbModulesHomePage';
 import DataViewPage from './pages/DataViewPage';
 import DirectReportPage from './pages/DirectReportPage';
 import WelcomePage, { dismissWelcome, isWelcomeDismissed } from './pages/WelcomePage';
-import { ALL_MODULES_PATH } from './constants/routes';
+import {
+  canAccessOverview,
+  overviewPathsToRegister,
+} from './constants/routes';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -53,19 +57,20 @@ function DynamicRoutes() {
     return <Route key={path} path={path} element={element} />;
   });
 
-  const allModulesRoute = (
+  const overviewAllowed = canAccessOverview(allowedRoutes);
+  const overviewRoutes = overviewPathsToRegister(allowedRoutes).map((path) => (
     <Route
-      key={ALL_MODULES_PATH}
-      path={ALL_MODULES_PATH}
+      key={`overview-${path}`}
+      path={path}
       element={
-        allowedRoutes.includes(ALL_MODULES_PATH) ? (
+        overviewAllowed ? (
           <RnbModulesHomePage />
         ) : (
           <div className="rnb-home-message rnb-home-error">Unauthorized</div>
         )
       }
     />
-  );
+  ));
 
   const defaultHome =
     allowedRoutes.find((p) => p === '/home') ||
@@ -83,26 +88,10 @@ function DynamicRoutes() {
           </RequireAuth>
         }
       >
-        {allModulesRoute}
+        {overviewRoutes}
         {routeElements}
-        <Route
-          path="/changepassword"
-          element={
-            <AccountPlaceholderPage
-              title="Change Password"
-              description="Password change is being migrated from the legacy dashboard. Full form and policy validation will match R-BDashboard soon."
-            />
-          }
-        />
-        <Route
-          path="/updateuserdetails"
-          element={
-            <AccountPlaceholderPage
-              title="Update Profile"
-              description="Profile update is being migrated from the legacy dashboard. You will be able to edit contact and designation details here soon."
-            />
-          }
-        />
+        <Route path="/changepassword" element={<ChangePasswordPage />} />
+        <Route path="/updateuserdetails" element={<UpdateUserDetailsPage />} />
         <Route index element={<Navigate to={defaultHome} replace />} />
         <Route path="*" element={<Navigate to={defaultHome} replace />} />
       </Route>

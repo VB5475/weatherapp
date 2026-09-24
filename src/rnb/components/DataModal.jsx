@@ -20,7 +20,17 @@ export default function DataModal({ title, subtitle, rows, onClose }) {
             ×
           </button>
         </div>
-        <DataGrid columns={columns} rows={rows} plain enableColumnFilters />
+        <div className="data-modal-body">
+          <DataGrid
+            columns={columns}
+            rows={rows}
+            plain
+            appearance="dashboard"
+            chrome="modal"
+            enableColumnFilters={false}
+            pageSize={100}
+          />
+        </div>
       </div>
     </>
   );

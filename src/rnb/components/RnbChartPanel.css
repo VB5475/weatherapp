@@ -1,7 +1,7 @@
 .rnb-chart-panel {
   display: flex;
   flex-direction: column;
-  min-height: 320px;
+  min-height: 380px;
   padding: 0;
   overflow: hidden;
   transition:
@@ -28,14 +28,25 @@
 .rnb-chart-panel-content {
   display: flex;
   flex-direction: column;
-  flex: 1;
-  padding: 12px 18px 18px;
-  gap: 8px;
+  flex: 1 1 auto;
+  padding: 0 0 18px;
+  gap: 0;
   min-height: 0;
+  overflow: hidden;
 }
 
 .rnb-chart-panel-content .rnb-applied-filters {
   margin: 0;
+}
+
+.rnb-chart-panel-content .rnb-chart-panel-body,
+.rnb-chart-panel-content .rnb-chart-panel-body--grid {
+  padding: 14px 18px 0;
+}
+
+.rnb-chart-panel-content:has(.rnb-applied-filters) .rnb-chart-panel-body,
+.rnb-chart-panel-content:has(.rnb-applied-filters) .rnb-chart-panel-body--grid {
+  padding-top: 12px;
 }
 
 .rnb-chart-grid-toggle {
@@ -93,52 +104,22 @@
   background: var(--accent-primary);
 }
 
-.rnb-chart-panel-body--grid {
-  min-height: 0;
+/* Card-only grid sizing — do not apply to expand modal */
+.rnb-chart-panel .rnb-chart-panel-body--grid {
+  min-height: 280px;
+  height: 280px;
   padding-top: 4px;
 }
 
-.rnb-chart-panel-body--grid .data-grid-wrapper--embedded {
-  display: flex;
-  flex-direction: column;
+.rnb-chart-panel .rnb-chart-panel-body--grid .data-grid-wrapper--embedded {
   flex: 1;
   min-height: 240px;
   max-height: 320px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border-light);
-  overflow: hidden;
-  background: #fff;
 }
 
-.rnb-chart-panel-body--grid .data-grid-scroll {
+.rnb-chart-panel .rnb-chart-panel-body--grid .data-grid-scroll {
   flex: 1;
   max-height: none;
-}
-
-.rnb-chart-panel-body--grid .data-grid-head-row th {
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--accent-primary) 92%, #0f172a) 0%,
-    var(--accent-primary) 100%
-  );
-  color: #fff;
-  font-size: 10px;
-  letter-spacing: 0.06em;
-}
-
-.rnb-chart-panel-body--grid .data-grid-table td {
-  padding: 8px 12px;
-  font-size: 12px;
-}
-
-.rnb-chart-panel-body--grid .data-grid-table tbody tr.data-grid-total-row {
-  background: var(--accent-primary-dim);
-  font-weight: 700;
-}
-
-.rnb-chart-panel-body--grid .data-grid-table tbody tr.data-grid-total-row td {
-  border-top: 2px solid color-mix(in srgb, var(--accent-primary) 35%, transparent);
-  color: var(--accent-primary);
 }
 
 .rnb-chart-action {
@@ -195,11 +176,8 @@
   color: #fff;
 }
 
-.rnb-chart-panel-body {
-  flex: 1;
-  min-height: 260px;
-}
-
-.rnb-chart-panel-body--expanded {
-  min-height: 400px;
+.rnb-chart-panel .rnb-chart-panel-body {
+  flex: 1 1 auto;
+  min-height: 280px;
+  height: 280px;
 }

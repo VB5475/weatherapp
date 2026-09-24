@@ -41,8 +41,6 @@ export default function RnbSidebar({
     [user],
   );
 
-
-
   const filteredSearch = useMemo(() => {
 
     const q = query.trim().toLowerCase();

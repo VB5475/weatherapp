@@ -30,7 +30,7 @@ export function chartGridFromWidget(chart) {
     return { rows, columns };
   }
 
-  const columns = [{ key: 'label', label: 'Label' }];
+  const columns = [{ key: 'label', label: 'LABEL' }];
   const seriesKeys = chart.datasets.map((ds) => {
     columns.push({ key: ds.label, label: ds.label, align: 'right' });
     return ds.label;
