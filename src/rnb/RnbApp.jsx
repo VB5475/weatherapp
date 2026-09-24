@@ -20,6 +20,7 @@ import WelcomePage, { dismissWelcome, isWelcomeDismissed } from './pages/Welcome
 import {
   canAccessOverview,
   overviewPathsToRegister,
+  pickDefaultLandingPath,
 } from './constants/routes';
 
 const queryClient = new QueryClient({
@@ -72,10 +73,7 @@ function DynamicRoutes() {
     />
   ));
 
-  const defaultHome =
-    allowedRoutes.find((p) => p === '/home') ||
-    allowedRoutes.find((p) => p.startsWith('/')) ||
-    '/login';
+  const defaultHome = pickDefaultLandingPath(allowedRoutes);
 
   return (
     <Routes>

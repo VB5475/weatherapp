@@ -13,6 +13,7 @@ import {
   RefreshCw,
   ShieldCheck,
 } from 'lucide-react';
+import { pickDefaultLandingPath } from '../constants/routes';
 import { login } from '../services/auth';
 import { fetchUserVisitStats } from '../services/loginAnalytics';
 import { useUser } from '../context/UserContext';
@@ -44,7 +45,7 @@ export default function LoginPage() {
   const [trafficLoading, setTrafficLoading] = useState(SHOW_TRAFFIC_STATUS);
 
   const navigate = useNavigate();
-  const { setUser } = useUser();
+  const { user, setUser } = useUser();
 
   const reloadCaptcha = useCallback(() => {
     loadCaptchaEnginge(6, '#f8fafc', '#334155', 'numbers');
@@ -76,7 +77,9 @@ export default function LoginPage() {
   }, []);
 
   if (isAuthenticated()) {
-    return <Navigate to="/home" replace />;
+    return (
+      <Navigate to={pickDefaultLandingPath(user?.AllowedRoutes ?? [])} replace />
+    );
   }
 
   async function performLogin(payload) {
@@ -85,9 +88,7 @@ export default function LoginPage() {
       const user = await login(payload);
       if (user) {
         setUser(user);
-        const firstRoute =
-          user.AllowedRoutes?.find((p) => p.startsWith('/')) || '/home';
-        navigate(firstRoute, { replace: true });
+        navigate(pickDefaultLandingPath(user.AllowedRoutes ?? []), { replace: true });
       }
     } finally {
       setSubmitting(false);

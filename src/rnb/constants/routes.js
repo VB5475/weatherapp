@@ -26,3 +26,14 @@ export function canAccessOverview(allowedRoutes = []) {
 export function pickOverviewNavPath(allowedRoutes = []) {
   return allowedRoutes.find(isOverviewRoutePath) || DSH_OVERVIEW_PATH;
 }
+
+/** First screen after login and for `/` redirect. */
+export function pickDefaultLandingPath(allowedRoutes = []) {
+  if (canAccessOverview(allowedRoutes)) {
+    return pickOverviewNavPath(allowedRoutes);
+  }
+  if (allowedRoutes.includes('/home')) return '/home';
+  const first = allowedRoutes.find((p) => typeof p === 'string' && p.startsWith('/'));
+  if (first) return first;
+  return DSH_OVERVIEW_PATH;
+}

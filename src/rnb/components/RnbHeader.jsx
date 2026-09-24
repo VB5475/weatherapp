@@ -3,7 +3,7 @@ import { Bell, Coins, Home, Menu } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useUser } from '../context/UserContext';
-import { isOverviewRoutePath } from '../constants/routes';
+import { pickDefaultLandingPath } from '../constants/routes';
 import { getMotherLinkTarget, getPageHeading } from '../utils/pageHeading';
 import { openMotherLogin } from '../services/motherLogin';
 import BroadcastBanner from './BroadcastBanner';
@@ -49,13 +49,10 @@ export default function RnbHeader({
     [heading.childTitle],
   );
 
-  const homePath = useMemo(() => {
-    const routes = user?.AllowedRoutes ?? [];
-    if (routes.includes('/home')) return '/home';
-    const overview = routes.find(isOverviewRoutePath);
-    if (overview) return overview;
-    return routes.find((p) => p.startsWith('/')) ?? '/home';
-  }, [user?.AllowedRoutes]);
+  const homePath = useMemo(
+    () => pickDefaultLandingPath(user?.AllowedRoutes ?? []),
+    [user?.AllowedRoutes],
+  );
 
   function toggleBanner() {
     setBannerVisible((prev) => {
