@@ -1,0 +1,150 @@
+.submodule-overview {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 18px;
+  min-height: 120px;
+}
+
+a.submodule-overview--clickable {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition:
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.28s ease,
+    border-color 0.28s ease,
+    background 0.28s ease;
+}
+
+a.submodule-overview--clickable:hover {
+  transform: translateY(-5px);
+  border-color: rgba(2, 132, 199, 0.38);
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow:
+    0 14px 32px rgba(2, 132, 199, 0.14),
+    0 6px 16px rgba(15, 23, 42, 0.06);
+}
+
+a.submodule-overview--clickable:active {
+  transform: translateY(-2px);
+  transition-duration: 0.12s;
+}
+
+a.submodule-overview--clickable:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 3px;
+}
+
+a.submodule-overview--clickable:hover .submodule-overview-title {
+  color: var(--accent-primary);
+}
+
+a.submodule-overview--clickable:hover .submodule-overview-grid {
+  filter: brightness(1.02);
+}
+
+article.submodule-overview.glass-card {
+  transition:
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.28s ease,
+    border-color 0.28s ease;
+}
+
+article.submodule-overview.glass-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-light);
+  box-shadow: var(--shadow-lg);
+}
+
+.submodule-overview-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.submodule-overview-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3;
+  transition: color 0.25s ease;
+}
+
+.submodule-overview-meta {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.submodule-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.submodule-overview-total {
+  margin-top: 4px;
+}
+
+.submodule-overview-total .rnb-stat-card {
+  width: 100%;
+}
+
+.submodule-overview-loading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text-muted);
+  padding: 8px 0;
+}
+
+.submodule-overview-spinner {
+  width: 22px;
+  height: 22px;
+  border-width: 2px;
+}
+
+.submodule-overview-empty,
+.submodule-overview-error {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+a.submodule-overview--clickable:hover .rnb-stat-card--static {
+  background: rgba(255, 255, 255, 0.98);
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 16px rgba(15, 23, 42, 0.06),
+    inset 0 0 0 1px rgba(2, 132, 199, 0.1);
+  z-index: 1;
+}
+
+a.submodule-overview--clickable:hover .rnb-stat-card--static::before {
+  width: 5px;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a.submodule-overview--clickable,
+  article.submodule-overview.glass-card,
+  .link-overview-card--clickable {
+    transition: box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  }
+}
+
+@media (max-width: 1200px) {
+  .submodule-overview-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .submodule-overview-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,85 @@
+.direct-report-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.direct-report-filters {
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.direct-report-ddl-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.direct-report-ddl-row label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.direct-report-ddl-row select {
+  padding: 9px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-light);
+}
+
+.direct-report-search {
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-light);
+  max-width: 360px;
+}
+
+.direct-report-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.direct-report-card {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.direct-report-card h3 {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.direct-report-card p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  flex: 1;
+}
+
+.direct-report-file {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.direct-report-download {
+  align-self: flex-start;
+  padding: 8px 14px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--accent-primary);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.direct-report-download:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}

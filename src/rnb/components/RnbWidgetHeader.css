@@ -1,0 +1,121 @@
+/* Shared chart/widget header — R-BDashboard layout, weatherapp design tokens */
+
+.rnb-widget-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 12px 18px;
+  border-bottom: 1px solid color-mix(in srgb, var(--accent-primary) 12%, var(--border-subtle));
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accent-primary) 8%, #fff) 0%,
+    color-mix(in srgb, var(--accent-primary) 4%, var(--bg-secondary)) 48%,
+    color-mix(in srgb, var(--accent-primary) 7%, #fff) 100%
+  );
+  backdrop-filter: blur(calc(var(--glass-blur) * 0.75));
+}
+
+.rnb-widget-header::after {
+  content: '';
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--accent-primary) 35%, transparent) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.rnb-widget-header--modal {
+  padding: 14px 20px;
+  border-bottom-color: color-mix(in srgb, var(--accent-primary) 18%, var(--border-light));
+  background: linear-gradient(
+    135deg,
+    var(--accent-primary-dim) 0%,
+    rgba(255, 255, 255, 0.96) 55%,
+    color-mix(in srgb, var(--accent-primary) 6%, #fff) 100%
+  );
+}
+
+.rnb-widget-header-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-width: 0;
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.rnb-widget-header-accent {
+  flex-shrink: 0;
+  width: 4px;
+  align-self: stretch;
+  min-height: 36px;
+  border-radius: 999px;
+  background: linear-gradient(
+    180deg,
+    var(--accent-primary) 0%,
+    var(--accent-secondary) 100%
+  );
+  box-shadow: 0 0 12px color-mix(in srgb, var(--accent-primary) 45%, transparent);
+}
+
+.rnb-widget-header-text {
+  min-width: 0;
+}
+
+.rnb-widget-header-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: var(--text-primary);
+}
+
+.rnb-widget-header--modal .rnb-widget-header-title {
+  font-size: 1.15rem;
+}
+
+.rnb-widget-header-subtitle {
+  margin: 4px 0 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+.rnb-widget-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  position: relative;
+  z-index: 1;
+}
+
+.rnb-widget-header-actions .rnb-chart-grid-toggle {
+  background: var(--glass-bg);
+  border-color: color-mix(in srgb, var(--accent-primary) 22%, var(--border-light));
+  box-shadow: var(--shadow-glow);
+}
+
+.rnb-widget-header-actions .rnb-chart-action {
+  background: var(--glass-bg);
+  border-color: color-mix(in srgb, var(--accent-primary) 18%, var(--border-light));
+}
+
+.rnb-widget-header-actions .rnb-chart-action.is-active {
+  box-shadow: var(--shadow-glow);
+}

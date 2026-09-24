@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import DistrictTable from '../components/DistrictTable';
 import { fetchDistrictRainfall } from '../services/api';
+import RnbLoader from '../rnb/components/RnbLoader';
 import './DashboardPage.css';
 
 export default function DistrictsPage() {
@@ -19,10 +20,7 @@ export default function DistrictsPage() {
 
   if (loading) {
     return (
-      <div className="loading-container">
-        <div className="loading-spinner" />
-        <p className="loading-text">Loading district data...</p>
-      </div>
+      <RnbLoader variant="page" message="Loading district data" />
     );
   }
 

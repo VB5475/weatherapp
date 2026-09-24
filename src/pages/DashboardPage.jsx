@@ -10,6 +10,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
+import RnbLoader from '../rnb/components/RnbLoader';
 import './DashboardPage.css';
 
 export default function DashboardPage() {
@@ -36,10 +37,7 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="loading-container">
-        <div className="loading-spinner" />
-        <p className="loading-text">Loading rainfall data...</p>
-      </div>
+      <RnbLoader variant="page" message="Loading rainfall data" />
     );
   }
 
