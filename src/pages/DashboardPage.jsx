@@ -10,7 +10,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-import RnbLoader from '../rnb/components/RnbLoader';
+import PageLoader from '../components/PageLoader';
 import './DashboardPage.css';
 
 export default function DashboardPage() {
@@ -37,7 +37,7 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <RnbLoader variant="page" message="Loading rainfall data" />
+      <PageLoader message="Loading rainfall data" />
     );
   }
 
